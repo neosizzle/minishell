@@ -12,8 +12,10 @@ int ft_pwd(void)
 	wd_path = getcwd(NULL, 1024);
 	if (!wd_path)
 	{
-		ft_putendl_fd(wd_path, 1);
+		free(wd_path);
 		return (1);
 	}
+	ft_putendl_fd(wd_path, 1);
+	free(wd_path);
 	return (0);
 }

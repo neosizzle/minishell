@@ -1,4 +1,4 @@
-#include "jng.h"
+#include "minishell.h"
 
 /*
 Initializes mini struct.

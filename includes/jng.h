@@ -1,5 +1,5 @@
 #ifndef JNG_H
-#define JNG_H
+# define JNG_H
 
 # include "../libft/libft.h"
 # include <stdio.h>
@@ -11,7 +11,7 @@
 //Macros
 /*
 ** Token types
-** 
+**
 ** Empty : ' '
 ** cmd_builtin : any type of builtin cmd: e.g. echo, cat etc...
 ** cmd_builtin : any type of exe file
@@ -38,7 +38,7 @@
 //Structs
 /*
 ** Struct that contains token data stored in linked list structure
-** 
+**
 ** str - Token string
 ** type - Token type (refer to macros)
 ** prev and next - linked list pointers to prev or next token
@@ -53,8 +53,8 @@ typedef struct s_token
 
 /*
 ** Struct that contains minishell data
-** 
-** 
+**
+**
 ** tokens - head of tokens linked list
 ** envs - head of env linked list
 ** cmd - comamnd exists in current parsing
@@ -66,6 +66,7 @@ typedef struct s_mini
 	//t_env	*envs;
 	int		cmd;
 	int		exit;
+	int		exit_status_code;
 }	t_mini;
 
 //Error functions

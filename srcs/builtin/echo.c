@@ -3,8 +3,8 @@
 /*
 ** Prints out the arguments passed.
 **
-** @param	int		argc		the argument count;
-** @param	char	**argv		the argument vector;
+** @param	int		argc		The argument count;
+** @param	char	**argv		The argument vector;
 ** @return	int					1 for success and 0 for failure.
 */
 int	ft_echo(int argc, char **argv)
@@ -24,7 +24,7 @@ int	ft_echo(int argc, char **argv)
 	while (argv[i])
 	{
 		ft_putstr_fd(argv[i], 1);
-		if (argv[i + 1] != '\0')
+		if (argv[i + 1])
 			ft_putchar_fd(' ', 1);
 		i++;
 	}

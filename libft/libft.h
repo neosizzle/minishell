@@ -6,7 +6,7 @@
 
 typedef struct s_env
 {
-	void			*content;
+	char			*content;
 	struct s_env	*next;
 }	t_env;
 
