@@ -5,7 +5,7 @@ int	print_env_var_error(char *arg)
 	ft_putstr_fd("export: not a valid identifier: ", 2);
 	ft_putstr_fd(arg, 2);
 	ft_putchar_fd('\n', 2);
-	return (1);
+	return (0);
 }
 
 int	is_valid_env_var(char *arg)
@@ -37,16 +37,29 @@ int	add_env_var(t_env *env, char *arg)
 	return (1);
 }
 
-
-
 int	print_sorted_env_vars(t_env *env)
 {
-	t_env	**head;
-	t_env	*sorted_env;
+	t_env	*head;
 
-	sorted_env = sort_env(env);
+	head = get_sorted_env_vars(env);
+	while (head)
+	{
+		ft_putstr_fd("declare -x ", 1);
+		ft_putendl_fd(head->content, 1);
+		head = head->next;
+	}
+	ft_lstclear(head);
 }
 
+/*
+** If argument is provided, sets environment variable.
+** If not, prints out every environment variable sorted by alphabetical order.
+**
+** @param	int	argc		The argument count;
+** @param	char **argv		The argument vector;
+** @param	t_env *env		the head of the environment variables linked list;
+** @return	int				1 for success and 0 for failure.
+*/
 int	ft_export(int argc, char **argv, t_env *env)
 {
 	int i;
@@ -55,13 +68,10 @@ int	ft_export(int argc, char **argv, t_env *env)
 	if (argv[i])
 	{
 		if (!is_valid_env_var(argv[i]))
-			print_env_var_error(argv[i]);
+			return (print_env_var_error(argv[i]));
 		add_env(env, argv[i]);
 	}
 	else
-	{
-		// Print environment variables prefixed with "declared -x" in alphabetical order
 		print_sorted_env_vars(env);
-		return (1);
-	}
+	return (1);
 }
