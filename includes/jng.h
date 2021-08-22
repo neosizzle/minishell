@@ -13,23 +13,27 @@
 ** Token types
 ** 
 ** Empty : ' '
-** cmd : any type of cmd: e.g. echo, cat etc...
+** cmd_builtin : any type of builtin cmd: e.g. echo, cat etc...
+** cmd_builtin : any type of exe file
 ** arg : any type of argument for a command e.g. asdf, a.txt...
 ** trunc : '>'
 ** append : '>>'
 ** input : '<'
 ** heredoc : '<<'
+** pipe : '|'
+** and : '&&'
+** or : '||'
 */
-# define EMPTY 0
-# define CMD 1
-# define ARG 2
-# define TRUNC 3
-# define APPEND 4
-# define INPUT 5
-# define HEREDOC 6
-# define PIPE 7
-# define AND 8
-# define OR 9
+# define CMD_BUILTIN 1
+# define CMD_EXE 2
+# define ARG 3
+# define TRUNC 4
+# define APPEND 5
+# define INPUT 6
+# define HEREDOC 7
+# define PIPE 8
+# define AND 9
+# define OR 0
 
 //Structs
 /*
@@ -48,19 +52,6 @@ typedef struct s_token
 }	t_token;
 
 /*
-** Struct that contains env data stored in linked list structure
-** 
-** str - env string
-** next - ponints to the next env
-*/
-typedef struct s_env
-{
-	char			*str;
-	struct s_env	*next;
-}	t_env;
-
-
-/*
 ** Struct that contains minishell data
 ** 
 ** 
@@ -72,7 +63,7 @@ typedef struct s_env
 typedef struct s_mini
 {
 	t_token	*tokens;
-	t_env	*envs;
+	//t_env	*envs;
 	int		cmd;
 	int		exit;
 }	t_mini;
