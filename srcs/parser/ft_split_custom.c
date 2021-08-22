@@ -1,4 +1,5 @@
 #include "minishell.h"
+
 static void	ft_strcpy(char *dst, char *begin, char *end)
 {
 	while (begin < end)
