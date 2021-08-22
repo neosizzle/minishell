@@ -1,23 +1,23 @@
 #include "libft.h"
 
-t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
+t_env	*ft_lstmap(t_env *env)
 {
-	t_list	*head;
-	t_list	*new;
+	t_env	*head;
+	t_env	*new;
 
-	if (!lst || !f || !del)
+	if (!env)
 		return (NULL);
 	head = NULL;
-	while (lst)
+	while (env)
 	{
-		new = ft_lstnew((*f)(lst->content));
+		new = ft_lstnew(env->content);
 		if (!new)
 		{
-			ft_lstclear(&head, del);
+			ft_lstclear(&head);
 			return (NULL);
 		}
 		ft_lstadd_back(&head, new);
-		lst = lst->next;
+		env = env->next;
 	}
 	return (head);
 }

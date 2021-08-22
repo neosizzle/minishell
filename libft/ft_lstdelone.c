@@ -1,9 +1,9 @@
 #include "libft.h"
 
-void	ft_lstdelone(t_list *lst, void (*del)(void*))
+void	ft_lstdelone(t_env *env)
 {
-	if (!lst || !del)
+	if (!env)
 		return ;
-	(*del)(lst->content);
-	free(lst);
+	free(env->content);
+	free(env);
 }
