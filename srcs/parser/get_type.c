@@ -12,13 +12,13 @@ static int	is_builtin(char *token)
 	int	len;
 
 	len = ft_strlen(token);
-	if (ft_strncmp(token, "echo", len)
-		|| ft_strncmp(token, "cd", len)
-		|| ft_strncmp(token, "pwd", len)
-		|| ft_strncmp(token, "export", len)
-		|| ft_strncmp(token, "unset", len)
-		|| ft_strncmp(token, "env", len)
-		|| ft_strncmp(token, "ext", len))
+	if (!ft_strncmp(token, "echo", len)
+		|| !ft_strncmp(token, "cd", len)
+		|| !ft_strncmp(token, "pwd", len)
+		|| !ft_strncmp(token, "export", len)
+		|| !ft_strncmp(token, "unset", len)
+		|| !ft_strncmp(token, "env", len)
+		|| !ft_strncmp(token, "ext", len))
 		return (1);
 	return (0);
 }
