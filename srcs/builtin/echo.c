@@ -4,7 +4,7 @@
 ** Prints out the arguments passed.
 **
 ** @param	int		argc		the argument count;
-** @param	char	**argv		the array of argument strings;
+** @param	char	**argv		the argument vector;
 ** @return	int					1 for success and 0 for failure.
 */
 int	ft_echo(int argc, char **argv)
