@@ -1,11 +1,11 @@
-#include "jng.h"
+#include "minishell.h"
 
 /*
-Function to detect builtin commands
-(echo cd pwd export unset env exit)
-
-@param char		*token 	the token string
-@return int		1 if builtin 0 if not not
+** Function to detect builtin commands
+** (echo cd pwd export unset env exit)
+** 
+** @param char		*token 	the token string
+** @return int		1 if builtin 0 if not not
 */
 static int	is_builtin(char *token)
 {

@@ -6,7 +6,7 @@
 ** @param	t_token *head	the token head ptr;
 ** @return void
 */
-static void	free_tokens(t_token *head)
+void	free_tokens(t_token *head)
 {
 	t_token *curr;
 	t_token *prev;
