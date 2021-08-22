@@ -10,22 +10,21 @@ int	cmp_env_vars(const char *s1, const char *s2)
 	return ((unsigned char) s1[offset] - (unsigned char) s2[offset]);
 }
 
-void	*sort_env(t_env **env)
+t_env	*get_sorted_env_vars(t_env **env)
 {
-	t_env	**head;
+	t_env	*head;
 	t_env	*cur;
 	char	*cur_content;
 	int		unsorted;
 
-	head = (t_env **) malloc(sizeof(t_env *));
-	*head = ft_lstmap(env);
+	head = ft_lstmap(env);
 	if (!(*env))
 		return ;
 	unsorted = 1;
 	while (unsorted)
 	{
 		unsorted = 0;
-		cur = *env;
+		cur = head;
 		while (cur->next)
 		{
 			if (cmp_env_vars(cur->content, cur->next->content) > 0)
@@ -38,4 +37,5 @@ void	*sort_env(t_env **env)
 			cur = cur->next;
 		}
 	}
+	return (head);
 }
