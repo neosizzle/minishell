@@ -1,10 +1,10 @@
 #include "libft.h"
 
-t_list	*ft_lstlast(t_list *lst)
+t_env	*ft_lstlast(t_env *env)
 {
-	if (!lst)
+	if (!env)
 		return (NULL);
-	while (lst->next)
-		lst = lst->next;
-	return (lst);
+	while (env->next)
+		env = env->next;
+	return (env);
 }

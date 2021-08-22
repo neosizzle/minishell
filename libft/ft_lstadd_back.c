@@ -1,16 +1,16 @@
 #include "libft.h"
 
-void	ft_lstadd_back(t_list **lst, t_list *new)
+void	ft_lstadd_back(t_env **env, t_env *new)
 {
-	t_list	*last;
+	t_env	*last;
 
-	if (!lst)
+	if (!env)
 		return ;
-	if (*lst)
+	if (*env)
 	{
-		last = ft_lstlast(*lst);
+		last = ft_lstlast(*env);
 		last->next = new;
 	}
 	else
-		*lst = new;
+		*env = new;
 }

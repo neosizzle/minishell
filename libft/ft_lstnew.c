@@ -1,10 +1,10 @@
 #include "libft.h"
 
-t_list	*ft_lstnew(void *content)
+t_env	*ft_lstnew(char *content)
 {
-	t_list	*el;
+	t_env	*el;
 
-	el = (t_list *) malloc(sizeof(t_list));
+	el = (t_env *) malloc(sizeof(t_env));
 	if (!el)
 		return (NULL);
 	el->content = content;

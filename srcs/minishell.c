@@ -1,11 +1,11 @@
 #include "jng.h"
 
 /*
-Initializes mini struct. 
+Initializes mini struct.
 
-Mallocs memory for a mini struct. 
-Sets all primitive data types to 0. 
-(Not sure)Mallocs memory for non primitive data types. 
+Mallocs memory for a mini struct.
+Sets all primitive data types to 0.
+(Not sure)Mallocs memory for non primitive data types.
 
 @param void nothing
 @return t_mini* The pointer to new mini struct
@@ -22,10 +22,10 @@ static t_mini	*init_mini(void)
 }
 
 /*
-Entry point. 
+Entry point.
 
-Initializes variables and structs. 
-Start parsing next line as long as shell is active. 
+Initializes variables and structs.
+Start parsing next line as long as shell is active.
 Free variables and structs.
 
 @return int	status code
