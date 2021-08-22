@@ -71,13 +71,17 @@ typedef struct s_mini
 
 //Error functions
 void	err(char *message);
+void	err_noexit(char *message);
 
 //Free functions
 void	free_mini(t_mini *mini);
+void	free_tokens(t_token *head);
 void	free_term(char *cwd, char *buff);
 
 //Parsing functions
 void	parse(t_mini *mini, char *buff);
 int		get_type(t_mini *mini, char *token);
+char	**ft_split_custom(char *s, char c);
+void	trim_quotes(t_mini *mini);
 
 #endif

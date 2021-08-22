@@ -8,11 +8,6 @@
 // # include <sys/wait.h>
 # include "jng.h"
 
-// typedef struct s_env {
-// 	char			*content;
-// 	struct s_env	*next;
-// }				t_env;
-
 /*
 **	BUILT-IN
 */
@@ -61,5 +56,6 @@ t_env	*get_sorted_env_vars(t_env *env);
 // MISC. UTILS
 
 void	free_arr(char **arr);
+
 
 #endif
