@@ -61,7 +61,7 @@ int	print_sorted_env_vars(t_env *env)
 ** @param	t_env	*env		The pointer to the head of the environment variables linked list;
 ** @return	int					1 for success and 0 for failure.
 */
-int	ft_export(int argc, char **argv, t_env *env)
+int	ft_export(int argc, char **argv, t_env **env)
 {
 	int i;
 
@@ -70,9 +70,9 @@ int	ft_export(int argc, char **argv, t_env *env)
 	{
 		if (!is_valid_env_var(argv[i]))
 			return (print_env_var_error(argv[i]));
-		add_env_var(&env, argv[i]);
+		add_env_var(env, argv[i]);
 	}
 	else
-		print_sorted_env_vars(env);
+		print_sorted_env_vars(*env);
 	return (1);
 }
