@@ -23,7 +23,7 @@ t_env	*get_sorted_env_vars(t_env *env)
 		cur = head;
 		while (cur->next)
 		{
-			if (ft_strncmp(cur->content, cur->next->content, ft_strlen(cur->content)) > 0)
+			if (ft_strncmp(cur->content, cur->next->content, ft_strlen(cur->content)) > 0) // REPLACE
 			{
 				unsorted = 1;
 				cur_content = cur->content;
