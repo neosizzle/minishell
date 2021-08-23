@@ -63,7 +63,7 @@ typedef struct s_token
 typedef struct s_mini
 {
 	t_token	*tokens;
-	//t_env	*envs;
+	t_env	*envs;
 	int		cmd;
 	int		exit;
 	int		exit_status_code;
@@ -83,5 +83,11 @@ void	parse(t_mini *mini, char *buff);
 int		get_type(t_mini *mini, char *token);
 char	**ft_split_custom(char *s, char c);
 void	trim_quotes(t_mini *mini);
+
+//executor functions
+int		execute(t_mini *mini);
+void	exe_builtin(t_mini *mini, char *cmd, char **args);
+void	exe_executable(t_mini *mini, char *cmd, char **args);
+int		get_argc(char **args);
 
 #endif

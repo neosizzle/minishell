@@ -83,7 +83,7 @@ void	parse(t_mini *mini, char *buff)
 {
 	char **split;
 	t_token *head;
-	t_token *curr;
+	//t_token *curr;
 
 	if (bad_quotes(buff))
 	{
@@ -95,16 +95,17 @@ void	parse(t_mini *mini, char *buff)
 		return ;
 	head = new_token(mini, *split);
 	mini->tokens = head;
-	curr = head;
+	//curr = head;
 	while (*(++split))
 		token_addend(*split, mini);
 	trim_quotes(mini);
-	while (curr)
-	{
-		printf("Curr token : %s, type : %d\n", curr->str, curr->type);
-		curr = curr->next;
-	}
+	// while (curr)
+	// {
+	// 	printf("Curr token : %s, type : %d\n", curr->str, curr->type);
+	// 	curr = curr->next;
+	// }
 	//execute tokens
+	execute(mini);
 	mini->cmd = 1;
 	free_tokens(mini->tokens);
 }

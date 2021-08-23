@@ -1,6 +1,6 @@
 NAME=minishell
-GCC=gcc -fsanitize=address -g
-SRCS=srcs/*.c srcs/free/*.c srcs/err/*.c srcs/parser/*.c srcs/builtin/*.c srcs/env/*.c srcs/exe/*.c
+GCC=gcc -Wall -Wextra -fsanitize=address -g
+SRCS=srcs/*.c srcs/free/*.c srcs/err/*.c srcs/parser/*.c srcs/builtin/*.c srcs/env/*.c srcs/exe/*.c srcs/executor/*.c
 INC=-I includes
 INC_LIBFT=-L libft -lft
 OTHER_LIBS=-lreadline
