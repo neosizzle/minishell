@@ -107,7 +107,7 @@ char	*get_env_var(t_env *env, char *var_name)
 {
 	while (env)
 	{
-		if (!ft_strncmp(var_name, env->content, ft_strlen(var_name)))
+		if (!ft_strncmp(var_name, env->content, ft_strlen(var_name))) // REPLACE
 			return (env->content);
 		env = env->next;
 	}
