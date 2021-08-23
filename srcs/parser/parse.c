@@ -2,7 +2,7 @@
 
 /*
 ** Checks for unclosed quotes in string
-** 
+**
 ** @param	char 	*buff	the line buffer;
 ** @return 	int 	open	non 0 if quote error and 0 if everythings fine
 */
@@ -29,7 +29,7 @@ static int	bad_quotes(char *buff)
 
 /*
 ** Initializes head and creates new token list
-** 
+**
 ** @param	t_mini 	*mini	the mini struct pointer;
 ** @param	char 	*data	the token string;
 ** @return t_token 	*res	the ptr to the new token
@@ -48,7 +48,7 @@ static t_token	*new_token(t_mini *mini, char *data)
 
 /*
 ** Adds token to the end of the list
-** 
+**
 ** @param	char 	*str	the token string;
 ** @param	t_mini 	*mini	the mini struct pointer;
 ** @return void
@@ -68,7 +68,7 @@ static void	token_addend(char *data, t_mini *mini)
 
 /*
 ** Parses buff and does stuff
-** 
+**
 ** Check for bad quotes and formatting.
 ** Split the buffer using spaces as deliminators.
 ** Generate token linked list using split buffer.

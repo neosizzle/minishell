@@ -25,6 +25,14 @@ char	*traverse_dir(char *path, char *exe)
 	return (exe_path);
 }
 
+/*
+** Launches an executable found in the PATH environment variable.
+**
+** @param	int		argc		The argument count;
+** @param	char	**argv		The argument vector;
+** @param	t_env	*env		The pointer to the head of the environment variable linked list;
+** @return	int					The exit status code.
+*/
 int	ft_exe_env(int argc, char **argv, t_env *env)
 {
 	char	*var;

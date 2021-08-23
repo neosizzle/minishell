@@ -1,5 +1,11 @@
 #include "minishell.h"
 
+/*
+** Gets a newly created and sorted environment variables linked list.
+**
+** @param	t_env	*env		The pointer to the head of the environment variables linked list;
+** @return	t_env*				The sorted environment variables linked list.
+*/
 t_env	*get_sorted_env_vars(t_env *env)
 {
 	t_env	*head;
@@ -38,6 +44,12 @@ int	print_env_var_error(char *arg)
 	return (0);
 }
 
+/*
+** Prints out every environment variable sorted by alphabetical order.
+**
+** @param	t_env	*env		The pointer to the head of the environment variables linked list;
+** @return	int					1 for success and 0 for failure.
+*/
 int	print_sorted_env_vars(t_env *env)
 {
 	t_env	*head;
@@ -50,6 +62,7 @@ int	print_sorted_env_vars(t_env *env)
 		head = head->next;
 	}
 	ft_lstclear(&head);
+	return (1);
 }
 
 /*
