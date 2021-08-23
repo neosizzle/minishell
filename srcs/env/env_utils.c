@@ -88,8 +88,8 @@ int	remove_env_var(t_env **env, char *var)
 		if (!ft_strncmp((*env)->next->content, var, get_env_var_name_size((*env)->next->content)))
 		{
 			temp = (*env)->next;
-			ft_lstdelone(temp);
 			(*env)->next = (*env)->next->next;
+			ft_lstdelone(temp);
 			return (1);
 		}
 	}
