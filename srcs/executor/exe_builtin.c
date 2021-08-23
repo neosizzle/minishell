@@ -16,14 +16,14 @@ void	exe_builtin(t_mini *mini, char *cmd, char **args)
 		ft_echo(argc, args);
 	else if (!ft_strcmp(cmd, "pwd"))
 		ft_pwd();
-	else if (!ft_strcmp(cmd, "cd"))
-		ft_cd(argc, args, mini->envs);
-	else if (!ft_strcmp(cmd, "env"))
-		ft_env(mini->envs);
-	else if (!ft_strcmp(cmd, "exit"))
+	else if (!ft_strncmp(cmd, "cd", len))
+		ft_cd(argc, args, mini);
+	else if (!ft_strncmp(cmd, "env", len))
+		ft_env(mini);
+	else if (!ft_strncmp(cmd, "exit", len))
 		ft_exit(argc, args, mini);
-	else if (!ft_strcmp(cmd, "export"))
-		ft_export(argc, args, &mini->envs);
-	else if (!ft_strcmp(cmd, "unset"))
-		ft_unset(argc, args, &mini->envs);
+	else if (!ft_strncmp(cmd, "export", len))
+		ft_export(argc, args, mini);
+	else if (!ft_strncmp(cmd, "unset", len))
+		ft_unset(argc, args, mini);
 }

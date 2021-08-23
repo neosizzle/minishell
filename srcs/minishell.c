@@ -18,7 +18,7 @@ static t_mini	*init_mini(void)
 	mini->exit = 0;
 	mini->cmd = 1;
 	mini->tokens = 0;
-	mini->envs = 0;
+	mini->envs = NULL;
 	return (mini);
 }
 
