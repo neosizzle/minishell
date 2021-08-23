@@ -20,6 +20,14 @@ int	print_exe_path_err(char *path)
 	return (0);
 }
 
+/*
+** Launches an executable from the specified path argument.
+**
+** @param	int		argc		The argument count;
+** @param	char	**argv		The argument vector;
+** @param	t_env	*env		The pointer to the head of the environment variable linked list;
+** @return	int					The exit status code.
+*/
 int	launch_exe(char *path, char **argv, t_env *env)
 {
 	pid_t	pid;

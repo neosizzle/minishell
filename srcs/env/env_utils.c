@@ -53,11 +53,10 @@ int	add_env_var(t_env **env, char *var)
 		return (0);
 	new->content = ft_strdup(var);
 	new->next = NULL;
-	if (!(*env))
+	if (!env)
 		*env = new;
-	while (*env && (*env)->next)
-		*env = (*env)->next;
-	(*env)->next = new;
+	else
+		ft_lstadd_back(env, new);
 	return (1);
 }
 
@@ -68,25 +67,29 @@ int	add_env_var(t_env **env, char *var)
 ** @param	char	*var		The environment variable;
 ** @return	int				1 for success and 0 for failure.
 */
-int	remove_env_var(t_env *env, char *var)
+int	remove_env_var(t_env **env, char *var)
 {
 	t_env	*temp;
 
-	if (!ft_strncmp(env->content, var, get_env_var_name_size(env->content)))
+	if (!env || !(*env))
+		return (0);
+	if (!ft_strncmp((*env)->content, var, get_env_var_name_size((*env)->content)))
 	{
-		temp = env;
-		if (env->next)
-			env = env->next;
+		temp = *env;
+		if ((*env)->next)
+			*env = (*env)->next;
+		else
+			*env = NULL;
 		ft_lstdelone(temp);
 		return (1);
 	}
-	while (env && env->next)
+	while (*env && (*env)->next)
 	{
-		if (!ft_strncmp(env->next->content, var, get_env_var_name_size(env->next->content)))
+		if (!ft_strncmp((*env)->next->content, var, get_env_var_name_size((*env)->next->content)))
 		{
-			temp = env->next;
+			temp = (*env)->next;
+			(*env)->next = (*env)->next->next;
 			ft_lstdelone(temp);
-			env->next = env->next->next;
 			return (1);
 		}
 	}

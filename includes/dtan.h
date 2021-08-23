@@ -19,11 +19,11 @@ int		ft_env(t_env *env);
 
 void	ft_exit(int argc, char **argv, t_mini *mini);
 
-int		ft_export(int argc, char **argv, t_env *env);
+int		ft_export(int argc, char **argv, t_env **env);
 
 int		ft_pwd(void);
 
-int		ft_unset(int argc, char **argv, t_env *env);
+int		ft_unset(int argc, char **argv, t_env **env);
 
 /*
 **	EXE UTILS
@@ -37,7 +37,7 @@ int		print_exe_path_err(char *path);
 */
 int		add_env_var(t_env **env, char *arg);
 
-int		remove_env_var(t_env *env, char *arg);
+int		remove_env_var(t_env **env, char *arg);
 
 int		set_env_var(t_env *env, char *var);
 
