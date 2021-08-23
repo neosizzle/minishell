@@ -39,7 +39,7 @@ static t_token	*new_token(t_mini *mini, char *data)
 	t_token	*res;
 
 	res = (t_token *)malloc(sizeof(t_token));
-	res->str = data;
+	res->str = ft_strdup(data);
 	res->type = get_type(mini, data);
 	res->prev = 0;
 	res->next = 0;
@@ -82,8 +82,8 @@ static void	token_addend(char *data, t_mini *mini)
 void	parse(t_mini *mini, char *buff)
 {
 	char **split;
+	int	i;
 	t_token *head;
-	//t_token *curr;
 
 	if (bad_quotes(buff))
 	{
@@ -95,17 +95,11 @@ void	parse(t_mini *mini, char *buff)
 		return ;
 	head = new_token(mini, *split);
 	mini->tokens = head;
-	//curr = head;
-	while (*(++split))
-		token_addend(*split, mini);
+	i = 0;
+	while (split[++i])
+		token_addend(split[i], mini);
 	trim_quotes(mini);
-	// while (curr)
-	// {
-	// 	printf("Curr token : %s, type : %d\n", curr->str, curr->type);
-	// 	curr = curr->next;
-	// }
-	//execute tokens
 	execute(mini);
 	mini->cmd = 1;
-	free_tokens(mini->tokens);
+	free_arr(split);
 }
