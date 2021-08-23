@@ -27,6 +27,7 @@ Entry point.
 
 Initializes variables and structs.
 Start parsing next line as long as shell is active.
+Free the terminal components after each parse
 Free variables and structs.
 
 @return int	status code
@@ -47,7 +48,6 @@ int	main(int argc, char *argv[])
 		ft_strlcat(cwd, "@minishell> ", 1024 + 13);
 		buff = readline(cwd);
 		parse(mini, buff);
-		free_tokens(mini->tokens);
 		free_term(cwd, buff);
 	}
 	free_mini(mini);

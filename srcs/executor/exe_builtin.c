@@ -9,23 +9,21 @@
 */
 void	exe_builtin(t_mini *mini, char *cmd, char **args)
 {
-	int	len;
 	int	argc;
 
-	len = ft_strlen(cmd);
 	argc = get_argc(args);
-	if (!ft_strncmp(cmd, "echo", len))
+	if (!ft_strcmp(cmd, "echo"))
 		ft_echo(argc, args);
-	else if (!ft_strncmp(cmd, "pwd", len))
+	else if (!ft_strcmp(cmd, "pwd"))
 		ft_pwd();
-	else if (!ft_strncmp(cmd, "cd", len))
+	else if (!ft_strcmp(cmd, "cd"))
 		ft_cd(argc, args, mini->envs);
-	else if (!ft_strncmp(cmd, "env", len))
+	else if (!ft_strcmp(cmd, "env"))
 		ft_env(mini->envs);
-	else if (!ft_strncmp(cmd, "exit", len))
+	else if (!ft_strcmp(cmd, "exit"))
 		ft_exit(argc, args, mini);
-	else if (!ft_strncmp(cmd, "export", len))
+	else if (!ft_strcmp(cmd, "export"))
 		ft_export(argc, args, &mini->envs);
-	else if (!ft_strncmp(cmd, "unset", len))
+	else if (!ft_strcmp(cmd, "unset"))
 		ft_unset(argc, args, &mini->envs);
 }
