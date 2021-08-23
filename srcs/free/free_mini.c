@@ -3,7 +3,7 @@
 /*
 ** Frees env linked list
 ** 
-** @param	t_token *head	the env head ptr;
+** @param	t_env *head	the env head ptr;
 ** @return void
 */
 void	free_envs(t_env *head)
