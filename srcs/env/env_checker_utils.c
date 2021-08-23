@@ -11,7 +11,7 @@ int	is_in_env(t_env *env, char *var)
 {
 	while (env)
 	{
-		if (!ft_strncmp(env->content, var, ft_strlen(var)))
+		if (!ft_strncmp(env->content, var, ft_strlen(var))) // REPLACE
 			return (1);
 		env = env->next;
 	}
