@@ -34,7 +34,7 @@ int	ft_exe_env(int argc, char **argv, t_env *env)
 	int		status_code;
 
 	var = get_env_var(env, "PATH");
-	paths = ft_split(var, ":");
+	paths = ft_split(var, ':');
 	path = traverse_dir(paths[0], argv[0]);
 	i = 1;
 	while (path == NULL)
