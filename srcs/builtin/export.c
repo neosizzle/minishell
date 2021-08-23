@@ -6,16 +6,16 @@
 ** @param	t_env	*env		The pointer to the head of the environment variables linked list;
 ** @return	t_env*				The sorted environment variables linked list.
 */
-t_env	*get_sorted_env_vars(t_env *env)
+t_env	*get_sorted_env_vars(t_mini *mini)
 {
 	t_env	*head;
 	t_env	*cur;
 	char	*cur_content;
 	int		unsorted;
 
-	head = ft_lstmap(env);
-	if (!env)
+	if (!mini->envs)
 		return (NULL);
+	head = ft_lstmap(mini->envs);
 	unsorted = 1;
 	while (unsorted)
 	{
@@ -50,11 +50,11 @@ int	print_env_var_error(char *arg)
 ** @param	t_env	*env		The pointer to the head of the environment variables linked list;
 ** @return	int					1 for success and 0 for failure.
 */
-int	print_sorted_env_vars(t_env *env)
+int	print_sorted_env_vars(t_mini *mini)
 {
 	t_env	*head;
 
-	head = get_sorted_env_vars(env);
+	head = get_sorted_env_vars(mini);
 	while (head)
 	{
 		ft_putstr_fd("declare -x ", 1);
@@ -74,7 +74,7 @@ int	print_sorted_env_vars(t_env *env)
 ** @param	t_env	*env		The pointer to the head of the environment variables linked list;
 ** @return	int					1 for success and 0 for failure.
 */
-int	ft_export(int argc, char **argv, t_env **env)
+int	ft_export(int argc, char **argv, t_mini *mini)
 {
 	int i;
 
@@ -83,9 +83,9 @@ int	ft_export(int argc, char **argv, t_env **env)
 	{
 		if (!is_valid_env_var(argv[i]))
 			return (print_env_var_error(argv[i]));
-		add_env_var(env, argv[i]);
+		add_env_var(mini, argv[i]);
 	}
 	else
-		print_sorted_env_vars(*env);
+		print_sorted_env_vars(mini);
 	return (1);
 }

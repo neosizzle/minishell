@@ -33,7 +33,7 @@ char	*traverse_dir(char *path, char *exe)
 ** @param	t_env	*env		The pointer to the head of the environment variable linked list;
 ** @return	int					The exit status code.
 */
-int	ft_exe_env(int argc, char **argv, t_env *env)
+int	ft_exe_env(int argc, char **argv, t_mini *mini)
 {
 	char	*var;
 	char	**paths;
@@ -41,7 +41,7 @@ int	ft_exe_env(int argc, char **argv, t_env *env)
 	int		i;
 	int		status_code;
 
-	var = get_env_var(env, "PATH");
+	var = get_env_var(mini, "PATH");
 	paths = ft_split(var, ':');
 	path = traverse_dir(paths[0], argv[0]);
 	i = 1;
@@ -51,9 +51,9 @@ int	ft_exe_env(int argc, char **argv, t_env *env)
 		i++;
 	}
 	if (path == NULL)
-		status_code = launch_exe(argv[0], argv, env);
+		status_code = launch_exe(argv[0], argv, mini);
 	else
-		status_code = launch_exe(path, argv, env);
+		status_code = launch_exe(path, argv, mini);
 	free_arr(paths);
 	free(path);
 	return (status_code);

@@ -28,7 +28,7 @@ int	print_exe_path_err(char *path)
 ** @param	t_env	*env		The pointer to the head of the environment variable linked list;
 ** @return	int					The exit status code.
 */
-int	launch_exe(char *path, char **argv, t_env *env)
+int	launch_exe(char *path, char **argv, t_mini *mini)
 {
 	pid_t	pid;
 	char	**env_arr;
@@ -37,7 +37,7 @@ int	launch_exe(char *path, char **argv, t_env *env)
 	pid = fork();
 	if (pid == 0)
 	{
-		env_arr = get_env_arr(env);
+		env_arr = get_env_arr(mini);
 		execve(path, argv, env_arr);
 		free_arr(env_arr);
 		exit(0);

@@ -6,20 +6,22 @@
 ** @param	t_env	*env		The pointer to the head of the environment variable linked list;
 ** @return	char**				The array of strings.
 */
-char	**get_env_arr(t_env *env)
+char	**get_env_arr(t_mini *mini)
 {
+	t_env	*cur;
 	char	**arr;
 	int		size;
 	int		i;
 
-	size = ft_lstsize(env);
+	cur = mini->envs;
+	size = ft_lstsize(mini->envs);
 	arr = (char **) malloc(sizeof(char *) * (size + 1));
 	i = 0;
-	while (env)
+	while (cur)
 	{
-		arr[i] = ft_strdup(env->content);
+		arr[i] = ft_strdup(cur->content);
 		i++;
-		env = env->next;
+		cur = cur->next;
 	}
 	arr[i] = NULL;
 	return (arr);
