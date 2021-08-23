@@ -47,6 +47,7 @@ int	main(int argc, char *argv[])
 		ft_strlcat(cwd, "@minishell> ", 1024 + 13);
 		buff = readline(cwd);
 		parse(mini, buff);
+		free_tokens(mini->tokens);
 		free_term(cwd, buff);
 	}
 	free_mini(mini);

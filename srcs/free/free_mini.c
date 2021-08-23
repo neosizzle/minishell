@@ -37,23 +37,15 @@ void	free_envs(t_env *head)
 */
 void	free_tokens(t_token *head)
 {
-	t_token *curr;
-	t_token *prev;
+	t_token *temp;
 
-	prev = head;
-	curr = head->next;
-	if (!curr)
+	while (head)
 	{
-		free(head->str);
-		free(head);
-		return ;
-	}
-	while (curr)
-	{
-		free(prev->str);
-		free(prev);
-		prev = curr;
-		curr = curr->next;
+		temp = head;
+		head = head->next;
+		free(temp->str);
+		free(temp);
+		temp = head;
 	}
 }
 
@@ -65,8 +57,6 @@ void	free_tokens(t_token *head)
 */
 void	free_mini(t_mini *mini)
 {
-	if (mini->tokens)
-		free_tokens(mini->tokens);
 	if (mini->envs)
 		free_envs(mini->envs);
 	free(mini);

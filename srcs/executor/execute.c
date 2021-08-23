@@ -114,5 +114,6 @@ int	execute(t_mini *mini)
 		while (curr && curr->type == ARG)
 			curr = curr->next;
 	}
+	free_arr(args);
 	return (0);
 }

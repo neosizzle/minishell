@@ -18,7 +18,7 @@ static int	is_builtin(char *token)
 		|| !ft_strncmp(token, "export", len)
 		|| !ft_strncmp(token, "unset", len)
 		|| !ft_strncmp(token, "env", len)
-		|| !ft_strncmp(token, "ext", len))
+		|| !ft_strncmp(token, "exit", len))
 		return (1);
 	return (0);
 }
