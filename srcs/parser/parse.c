@@ -15,7 +15,9 @@ static int	bad_quotes(char *buff)
 	open = 0;
 	while (buff[++i])
 	{
-		if (open == 0 && buff[i] == '\"')
+		if (i > 0 && buff[i - 1] == '\\')
+			;
+		else if (open == 0 && buff[i] == '\"')
 			open = 1;
 		else if (open == 0 && buff[i] == '\'')
 			open = 2;
@@ -72,7 +74,10 @@ static void	token_addend(char *data, t_mini *mini)
 ** Check for bad quotes and formatting.
 ** Split the buffer using spaces as deliminators.
 ** Generate token linked list using split buffer.
+** Returns to prompt if there is not any buffer
 ** Trim the quotes if any.
+** Executes the buffer.
+** Frees the tokens
 **
 ** @param	t_mini *mini	the mini struct ptr;
 ** @param	char	*buff	the buffer string;
@@ -92,7 +97,10 @@ void	parse(t_mini *mini, char *buff)
 	}
 	split = ft_split_custom(buff , ' ');
 	if (!*split)
+	{
+		free_arr(split);
 		return ;
+	}
 	head = new_token(mini, *split);
 	mini->tokens = head;
 	i = 0;
@@ -101,5 +109,6 @@ void	parse(t_mini *mini, char *buff)
 	trim_quotes(mini);
 	execute(mini);
 	mini->cmd = 1;
+	free_tokens(mini->tokens);
 	free_arr(split);
 }
