@@ -6,7 +6,7 @@
 ** @param char	*str	the string to be trimmed
 ** @return void nothing
 */
-static void	trim(char **str)
+static void	trim_quotes(char **str)
 {
 	int		len;
 	char	*temp;
@@ -20,19 +20,46 @@ static void	trim(char **str)
 }
 
 /*
-** Traverses tokens and trims the quotes
+** Trims the backslashes of a string
+** 
+** @param char	*str	the string to be trimmed
+** @return void nothing
+*/
+static void	trim_bs(char **str)
+{
+	int		bs_idx;
+	char	*left;
+	char	*right;
+	char	*combined;
+
+	bs_idx = 0;
+	while ((*str)[bs_idx] && (*str)[bs_idx] != '\\')
+		bs_idx++;
+	left = ft_substr(*str, 0, bs_idx);
+	right = ft_substr(*str, bs_idx , ft_strlen(*str));
+	combined = ft_strjoin(left, right + 1);
+	free(*str);
+	*str = combined;
+	free(left);
+	free(right);
+}
+
+
+/*
+** Traverses tokens and trims the quotes as well as backslashes
 ** 
 ** @param t_mini *mini	the mini struct pointer
 ** @return void nothing
 */
-void	trim_quotes(t_mini *mini)
+void	trim(t_mini *mini)
 {
 	t_token *curr;
 
 	curr = mini->tokens;
 	while (curr)
 	{
-		trim(&curr->str);
+		trim_quotes(&curr->str);
+		trim_bs(&curr->str);
 		curr = curr->next;
 	}
 }

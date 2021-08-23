@@ -82,7 +82,9 @@ void	free_term(char *cwd, char *buff);
 void	parse(t_mini *mini, char *buff);
 int		get_type(t_mini *mini, char *token);
 char	**ft_split_custom(char *s, char c);
-void	trim_quotes(t_mini *mini);
+int		bad_quotes(char *buff);
+int		bad_bs(char *buff);
+void	trim(t_mini *mini);
 
 //executor functions
 int		execute(t_mini *mini);
