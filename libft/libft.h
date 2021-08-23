@@ -96,4 +96,7 @@ void	ft_lstiter(t_env *env, void (*f)(void *));
 
 t_env	*ft_lstmap(t_env *env);
 
+//Additional functions
+int		ft_strcmp(char *s1, char *s2);
+
 #endif
