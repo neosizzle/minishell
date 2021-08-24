@@ -5,11 +5,13 @@
 ** 
 ** @param int	pid		The pid passed in by signal()
 ** @return void
-** TODO : executable implementation
 */
 void	handle_sigint(int pid)
 {
 	(void) pid;
+	if (g_signal.in_fork)
+		printf("\n");
+	else
 	printf("\n%s", g_signal.prompt);
 }
 
