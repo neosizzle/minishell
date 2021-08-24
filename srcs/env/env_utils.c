@@ -6,12 +6,12 @@
 ** @param	char	*var		The environment variable;
 ** @return	int				The size of the name of the environment variable.
 */
-int	get_env_var_name_size(char *arg)
+int	get_env_var_name_size(char *var)
 {
 	int	i;
 
 	i = 0;
-	while (arg[i] && arg[i] != '=')
+	while (var[i] && var[i] != '=')
 		i++;
 	return (i);
 }
@@ -19,6 +19,7 @@ int	get_env_var_name_size(char *arg)
 /*
 ** Sets an existing environment variable in the linked list to a new value.
 **
+** @param	t_mini *mini		The mini struct;
 ** @param	char	*var		The new environment variable;
 ** @return	int				The size of the name of the environment variable.
 */
@@ -43,7 +44,7 @@ int	set_env_var(t_mini *mini, char *var)
 /*
 ** Adds an environment variable to the linked list.
 **
-** @param	t_env	**env		The double pointer to the head of the environment variable linked list;
+** @param	t_mini *mini		The mini struct;
 ** @param	char	*var		The environment variable;
 ** @return	int				1 for success and 0 for failure.
 */
@@ -105,7 +106,7 @@ int	remove_env_var(t_mini *mini, char *var)
 /*
 ** Gets an environment variable from the linked list.
 **
-** @param	t_env	*env		The pointer to the head of the environment variable linked list;
+** @param	t_mini *mini		The mini struct;
 ** @param	char	*var_name	The name of the environment variable;
 ** @return	char*				The environment variable.
 */

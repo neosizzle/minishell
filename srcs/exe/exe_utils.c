@@ -25,7 +25,7 @@ int	print_exe_path_err(char *path)
 **
 ** @param	int		argc		The argument count;
 ** @param	char	**argv		The argument vector;
-** @param	t_env	*env		The pointer to the head of the environment variable linked list;
+** @param	t_mini *mini		The mini struct;
 ** @return	int					The exit status code.
 */
 int	launch_exe(char *path, char **argv, t_mini *mini)

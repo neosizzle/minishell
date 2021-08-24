@@ -5,7 +5,7 @@
 **
 ** @param	int		argc		The argument count;
 ** @param	char	**argv		The argument vector;
-** @param	t_env	*env		The pointer to the head of the environment variables linked list;
+** @param	t_mini *mini		The mini struct;
 ** @return	int					1 for success and 0 for failure.
 */
 int	ft_unset(int argc, char **argv, t_mini *mini)
