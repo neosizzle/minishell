@@ -9,16 +9,14 @@
 */
 static int	is_builtin(char *token)
 {
-	int	len;
-
-	len = ft_strlen(token);
-	if (!ft_strncmp(token, "echo", len)
-		|| !ft_strncmp(token, "cd", len)
-		|| !ft_strncmp(token, "pwd", len)
-		|| !ft_strncmp(token, "export", len)
-		|| !ft_strncmp(token, "unset", len)
-		|| !ft_strncmp(token, "env", len)
-		|| !ft_strncmp(token, "exit", len))
+	if (!ft_strcmp(token, "echo")
+		|| !ft_strcmp(token, "cd")
+		|| !ft_strcmp(token, "pwd")
+		|| !ft_strcmp(token, "export")
+		|| !ft_strcmp(token, "unset")
+		|| !ft_strcmp(token, "env")
+		|| !ft_strcmp(token, "exit")
+		|| !ft_strcmp(token, "history"))
 		return (1);
 	return (0);
 }
@@ -33,22 +31,19 @@ static int	is_builtin(char *token)
 */
 static int	is_delimiter(char *token)
 {
-	int	len;
-
-	len = ft_strlen(token);
-	if (!ft_strncmp(token, ">", len))
+	if (!ft_strcmp(token, ">"))
 		return (TRUNC);
-	if (!ft_strncmp(token, ">>", len))
+	if (!ft_strcmp(token, ">>"))
 		return (APPEND);
-	if (!ft_strncmp(token, "<", len))
+	if (!ft_strcmp(token, "<"))
 		return (INPUT);
-	if (!ft_strncmp(token, "<<", len))
+	if (!ft_strcmp(token, "<<"))
 		return (HEREDOC);
-	if (!ft_strncmp(token, "|", len))
+	if (!ft_strcmp(token, "|"))
 		return (PIPE);
-	if (!ft_strncmp(token, "&&", len))
+	if (!ft_strcmp(token, "&&"))
 		return (AND);
-	if (!ft_strncmp(token, "||", len))
+	if (!ft_strcmp(token, "||"))
 		return (OR);
 	return (0);
 }

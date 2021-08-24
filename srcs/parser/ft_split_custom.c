@@ -10,8 +10,15 @@ static void	ft_strcpy(char *dst, char *begin, char *end)
 static int	handle_quotes_tw(char **s)
 {
 	char	quote;
+	char	cancel;
 
 	quote = **s;
+	cancel = *(*s + 1);
+	if (quote && quote == '\\' && (cancel == '\"' || cancel == '\''))
+	{
+		(*s)+=2;
+		return (0);
+	}
 	if (!(quote == '\"' || quote == '\''))
 		return (0);
 	(*s)++;
@@ -46,13 +53,24 @@ static int	get_tw(char *s, char c)
 static int	handle_quotes(char **res, char *start, int *i, char **s)
 {
 	char	quote;
+	char	cancel;
 
 	quote = **s;
+	cancel = *(*s + 1);
+	if (quote && quote == '\\' && (cancel == '\"' || cancel == '\''))
+	{
+		(*s)+=2;
+		return (0);
+	}
 	if (!(quote == '\"' || quote == '\''))
 		return (0);
 	(*s)++;
 	while (**s && **s != quote)
+	{
+		if (**s == '\\')
+			(*s)++;
 		(*s)++;
+	}
 	if (**s == quote)
 		(*s)++;
 	res[*i] = (char *)malloc((char *)*s - start + 1);

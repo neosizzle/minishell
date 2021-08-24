@@ -1,30 +1,16 @@
 #include "minishell.h"
 
-/*
-** Checks for unclosed quotes in string
-**
-** @param	char 	*buff	the line buffer;
-** @return 	int 	open	non 0 if quote error and 0 if everythings fine
-*/
-static int	bad_quotes(char *buff)
+//helper func to print tokens for debugging, remove on prod
+static void	print_tokens(t_token *tokens)
 {
-	int	i;
-	int	open;
+	t_token *curr;
 
-	i = -1;
-	open = 0;
-	while (buff[++i])
+	curr = tokens;
+	while (curr)
 	{
-		if (open == 0 && buff[i] == '\"')
-			open = 1;
-		else if (open == 0 && buff[i] == '\'')
-			open = 2;
-		else if (open == 1 && buff[i] == '\"')
-			open = 0;
-		else if (open == 2 && buff[i] == '\'')
-			open = 0;
+		printf("token : |%s| type : %d\n", curr->str, curr->type);
+		curr = curr->next;
 	}
-	return (open);
 }
 
 /*
@@ -72,7 +58,10 @@ static void	token_addend(char *data, t_mini *mini)
 ** Check for bad quotes and formatting.
 ** Split the buffer using spaces as deliminators.
 ** Generate token linked list using split buffer.
+** Returns to prompt if there is not any buffer
 ** Trim the quotes if any.
+** Executes the buffer.
+** Frees the tokens
 **
 ** @param	t_mini *mini	the mini struct ptr;
 ** @param	char	*buff	the buffer string;
@@ -85,21 +74,26 @@ void	parse(t_mini *mini, char *buff)
 	int	i;
 	t_token *head;
 
-	if (bad_quotes(buff))
+	if (bad_quotes(buff) || bad_bs(buff))
 	{
-		err_noexit("Bad quotes");
+		err_noexit("Bad syntax");
 		return ;
 	}
 	split = ft_split_custom(buff , ' ');
 	if (!*split)
+	{
+		free_arr(split);
 		return ;
+	}
 	head = new_token(mini, *split);
 	mini->tokens = head;
 	i = 0;
 	while (split[++i])
 		token_addend(split[i], mini);
-	trim_quotes(mini);
+	trim(mini);
+	//print_tokens(mini->tokens);
 	execute(mini);
 	mini->cmd = 1;
+	free_tokens(mini->tokens);
 	free_arr(split);
 }

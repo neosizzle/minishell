@@ -1,5 +1,7 @@
 #include "minishell.h"
 
+t_signal	g_signal;
+
 /*
 Initializes mini struct.
 
@@ -19,6 +21,7 @@ static t_mini	*init_mini(void)
 	mini->cmd = 1;
 	mini->tokens = 0;
 	mini->envs = NULL;
+	mini->history = 0;
 	return (mini);
 }
 
@@ -26,7 +29,9 @@ static t_mini	*init_mini(void)
 Entry point.
 
 Initializes variables and structs.
+Set up signal handlers.
 Start parsing next line as long as shell is active.
+Free the terminal components after each parse
 Free variables and structs.
 
 @return int	status code
@@ -41,13 +46,19 @@ int	main(int argc, char *argv[])
 		err("Arguments invalid");
 	(void)argv;
 	mini = init_mini();
+	init_signals(mini);
+	signal(SIGQUIT, &handle_sigquit);
 	while (!mini->exit)
 	{
 		cwd = getcwd(NULL, 1024);
 		ft_strlcat(cwd, "@minishell> ", 1024 + 13);
+		g_signal.prompt = cwd;
+		signal(SIGINT, &handle_sigint);
 		buff = readline(cwd);
+		if (!buff)
+			handle_sigstop(69);
+		push_history(mini, buff);
 		parse(mini, buff);
-		free_tokens(mini->tokens);
 		free_term(cwd, buff);
 	}
 	free_mini(mini);
