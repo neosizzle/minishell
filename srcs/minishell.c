@@ -29,6 +29,7 @@ static t_mini	*init_mini(void)
 Entry point.
 
 Initializes variables and structs.
+Set up signal handlers.
 Start parsing next line as long as shell is active.
 Free the terminal components after each parse
 Free variables and structs.
@@ -46,6 +47,7 @@ int	main(int argc, char *argv[])
 	(void)argv;
 	mini = init_mini();
 	init_signals(mini);
+	signal(SIGQUIT, &handle_sigquit);
 	while (!mini->exit)
 	{
 		cwd = getcwd(NULL, 1024);
@@ -53,6 +55,8 @@ int	main(int argc, char *argv[])
 		g_signal.prompt = cwd;
 		signal(SIGINT, &handle_sigint);
 		buff = readline(cwd);
+		if (!buff)
+			handle_sigstop(69);
 		push_history(mini, buff);
 		parse(mini, buff);
 		free_term(cwd, buff);

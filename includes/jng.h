@@ -137,5 +137,7 @@ void	print_history(t_mini *mini);
 void	init_signals(t_mini *mini);
 void	reset_signals(void);
 void	handle_sigint(int pid);
+void	handle_sigquit(int pid);
+void	handle_sigstop(int pid);
 
 #endif
