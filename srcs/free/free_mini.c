@@ -50,6 +50,26 @@ void	free_tokens(t_token *head)
 }
 
 /*
+** Frees history linked list
+** 
+** @param	t_history *head	the history head ptr;
+** @return void
+*/
+void	free_history(t_history *head)
+{
+	t_history *temp;
+
+	while (head)
+	{
+		temp = head;
+		head = head->next;
+		free(temp->str);
+		free(temp);
+		temp = head;
+	}
+}
+
+/*
 ** Frees mini struct as well as its components
 ** 
 ** @param	t_mini *mini	the mini struct ptr;
@@ -59,5 +79,7 @@ void	free_mini(t_mini *mini)
 {
 	if (mini->envs)
 		free_envs(mini->envs);
+	if (mini->history)
+		free_history(mini->history);
 	free(mini);
 }

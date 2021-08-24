@@ -7,6 +7,7 @@
 # include <unistd.h>
 # include <readline/readline.h>
 # include <readline/history.h>
+# include <signal.h>
 
 //Macros
 /*
@@ -36,6 +37,20 @@
 # define OR 0
 
 //Structs
+
+/*
+** Struct that contains signal data
+**
+** str - Buffer string
+** next - linked list pointers to prev or next buffer in history
+*/
+typedef struct s_signal
+{
+	int		sigint;
+	char	*prompt;
+}	t_signal;
+
+
 /*
 ** Struct that contains token data stored in linked list structure
 **
@@ -52,22 +67,40 @@ typedef struct s_token
 }	t_token;
 
 /*
+** Struct that contains buffer data stored in linked list structure
+**
+** str - Buffer string
+** next - linked list pointers to prev or next buffer in history
+*/
+typedef struct s_history
+{
+	char				*str;
+	struct s_history	*next;
+}	t_history;
+
+
+/*
 ** Struct that contains minishell data
 **
 **
 ** tokens - head of tokens linked list
 ** envs - head of env linked list
+** history - head of history linked list
 ** cmd - comamnd exists in current parsing
 ** exit - exit status
 */
 typedef struct s_mini
 {
-	t_token	*tokens;
-	t_env	*envs;
-	int		cmd;
-	int		exit;
-	int		exit_status_code;
+	t_token		*tokens;
+	t_env		*envs;
+	t_history	*history;
+	int			cmd;
+	int			exit;
+	int			exit_status_code;
 }	t_mini;
+
+//Global vars
+extern t_signal g_signal;
 
 //Error functions
 void	err(char *message);
@@ -77,6 +110,7 @@ void	err_noexit(char *message);
 void	free_mini(t_mini *mini);
 void	free_tokens(t_token *head);
 void	free_term(char *cwd, char *buff);
+void	free_history(t_history *head);
 
 //Parsing functions
 void	parse(t_mini *mini, char *buff);
@@ -86,10 +120,14 @@ int		bad_quotes(char *buff);
 int		bad_bs(char *buff);
 void	trim(t_mini *mini);
 
-//executor functions
+//Executor functions
 int		execute(t_mini *mini);
 void	exe_builtin(t_mini *mini, char *cmd, char **args);
 void	exe_executable(t_mini *mini, char *cmd, char **args);
 int		get_argc(char **args);
+
+//History functions
+void	push_history(t_mini *mini, char *buff);
+void	print_history(t_mini *mini);
 
 #endif

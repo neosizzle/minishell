@@ -1,5 +1,7 @@
 #include "minishell.h"
 
+t_signal	g_signal;
+
 /*
 Initializes mini struct.
 
@@ -19,8 +21,14 @@ static t_mini	*init_mini(void)
 	mini->cmd = 1;
 	mini->tokens = 0;
 	mini->envs = 0;
+	mini->history = 0;
 	return (mini);
 }
+
+// static void test(int pid)
+// {
+// 	printf("\n%s", g_signal.prompt);
+// }
 
 /*
 Entry point.
@@ -42,11 +50,16 @@ int	main(int argc, char *argv[])
 		err("Arguments invalid");
 	(void)argv;
 	mini = init_mini();
+	//g_signal.sigint = 0;
+	//g_signal.prompt = 0;
 	while (!mini->exit)
 	{
 		cwd = getcwd(NULL, 1024);
 		ft_strlcat(cwd, "@minishell> ", 1024 + 13);
+		//g_signal.prompt = cwd;
+		//signal(SIGINT, &test);
 		buff = readline(cwd);
+		push_history(mini, buff);
 		parse(mini, buff);
 		free_term(cwd, buff);
 	}

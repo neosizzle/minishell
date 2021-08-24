@@ -40,6 +40,8 @@ int	bad_bs(char *buff)
 	int	len;
 
 	len = ft_strlen(buff);
+	if (!len)
+		return (0);
 	if (len == 1 && buff[0] == '\\')
 		return (1);
 	if (buff[len - 1] == '\\' && buff[len - 2] != '\\')

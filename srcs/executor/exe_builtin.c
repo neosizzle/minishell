@@ -26,4 +26,6 @@ void	exe_builtin(t_mini *mini, char *cmd, char **args)
 		ft_export(argc, args, &mini->envs);
 	else if (!ft_strcmp(cmd, "unset"))
 		ft_unset(argc, args, &mini->envs);
+	else if (!ft_strcmp(cmd, "history"))
+		print_history(mini);
 }

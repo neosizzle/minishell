@@ -33,15 +33,22 @@ static void	trim_bs(char **str)
 	char	*combined;
 
 	bs_idx = 0;
-	while ((*str)[bs_idx] && (*str)[bs_idx] != '\\')
+	combined = ft_strdup(*str);
+	while (combined[bs_idx])
+	{
+		if (combined[bs_idx] == '\\')
+		{
+			left = ft_substr(combined, 0, bs_idx);
+			right = ft_substr(combined, bs_idx , ft_strlen(combined));
+			free(combined);
+			combined = ft_strjoin(left, right + 1);
+			free(left);
+			free(right);
+		}
 		bs_idx++;
-	left = ft_substr(*str, 0, bs_idx);
-	right = ft_substr(*str, bs_idx , ft_strlen(*str));
-	combined = ft_strjoin(left, right + 1);
+	}
 	free(*str);
 	*str = combined;
-	free(left);
-	free(right);
 }
 
 
