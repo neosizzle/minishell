@@ -2,36 +2,29 @@
 
 /*
 ** Frees env linked list
-** 
+**
 ** @param	t_env *head	the env head ptr;
 ** @return void
 */
-void	free_envs(t_env *head)
+void	free_envs(t_mini *mini)
 {
-	t_env *curr;
-	t_env *prev;
+	t_env	*cur;
+	t_env	*temp;
 
-	prev = head;
-	curr = head->next;
-	if (!curr)
+	cur = mini->envs;
+	while (cur)
 	{
-		free(head->content);
-		free(head);
-		return ;
-	}
-	while (curr)
-	{
-		free(prev->content);
-		free(prev);
-		prev = curr;
-		curr = curr->next;
+		temp = cur;
+		cur = cur->next;
+		free(temp->content);
+		free(temp);
 	}
 }
 
 
 /*
 ** Frees token linked list
-** 
+**
 ** @param	t_token *head	the token head ptr;
 ** @return void
 */
@@ -71,14 +64,14 @@ void	free_history(t_history *head)
 
 /*
 ** Frees mini struct as well as its components
-** 
+**
 ** @param	t_mini *mini	the mini struct ptr;
 ** @return void
 */
 void	free_mini(t_mini *mini)
 {
 	if (mini->envs)
-		free_envs(mini->envs);
+		free_envs(mini);
 	if (mini->history)
 		free_history(mini->history);
 	free(mini);

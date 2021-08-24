@@ -6,7 +6,7 @@
 ** @param	t_env	*env		The pointer to the head of the environment variable linked list;
 ** @return	int					1 for success and 0 for failure.
 */
-int	set_old_pwd(t_env *env)
+int	set_old_pwd(t_mini *mini)
 {
 	char	*wd_path;
 	char	*old_pwd_path;
@@ -15,10 +15,10 @@ int	set_old_pwd(t_env *env)
 	if (!wd_path)
 		return (0);
 	old_pwd_path = ft_strjoin("OLDPWD=", wd_path);
-	if (!is_in_env(env, old_pwd_path))
-		add_env_var(&env, old_pwd_path);
+	if (!is_in_env(mini, old_pwd_path))
+		add_env_var(mini, old_pwd_path);
 	else
-		set_env_var(env, old_pwd_path);
+		set_env_var(mini, old_pwd_path);
 	free(wd_path); // might not need to free
 	free(old_pwd_path);
 	return (1);
@@ -69,17 +69,17 @@ char	*get_env_path(t_env *env, char *var)
 ** @param	t_env	*env		The pointer to the head of the environment variable linked list;
 ** @return	int					1 for success and 0 for failure.
 */
-int	go_to_hwd(t_env *env)
+int	go_to_hwd(t_mini *mini)
 {
 	char	*path;
 
-	path = get_env_path(env, "HOME");
+	path = get_env_path(mini->envs, "HOME");
 	if (!path)
 	{
 		ft_putendl_fd("minishell: cd: HOME not set", 2);
 		return (0);
 	}
-	set_old_pwd(env);
+	set_old_pwd(mini);
 	chdir(path);
 	free(path);
 	return (1);
@@ -93,17 +93,17 @@ int	go_to_hwd(t_env *env)
 ** @param	t_env	*env		The pointer to the head of the environment variable linked list;
 ** @return	int					1 for success and 0 for failure.
 */
-int	go_to_pwd(t_env *env)
+int	go_to_pwd(t_mini *mini)
 {
 	char	*path;
 
-	path = get_env_path(env, "OLDPWD");
+	path = get_env_path(mini->envs, "OLDPWD");
 	if (!path)
 	{
 		ft_putendl_fd("minishell: cd: OLDPWD not set", 2);
 		return (0);
 	}
-	set_old_pwd(env);
+	set_old_pwd(mini);
 	chdir(path);
 	free(path);
 	return (1);
@@ -126,7 +126,7 @@ int	print_cd_error(char *arg)
 ** @param	t_env	*env		The pointer to the head of the environment variable linked list;
 ** @return	int					1 for success and 0 for failure.
 */
-int	ft_cd(int argc, char **argv, t_env *env)
+int	ft_cd(int argc, char **argv, t_mini *mini)
 {
 	int	status;
 
@@ -136,12 +136,12 @@ int	ft_cd(int argc, char **argv, t_env *env)
 		return (0);
 	}
 	if (!argv[1] || !ft_strncmp(argv[1], "~", ft_strlen(argv[1])))
-		return (go_to_hwd(env));
+		return (go_to_hwd(mini));
 	if (!ft_strncmp(argv[1], "-", ft_strlen(argv[1])))
-		return (go_to_pwd(env));
+		return (go_to_pwd(mini));
 	else
 	{
-		set_old_pwd(env);
+		set_old_pwd(mini);
 		status = chdir(argv[1]);
 		if (status != 0)
 			return (print_cd_error(argv[1]));

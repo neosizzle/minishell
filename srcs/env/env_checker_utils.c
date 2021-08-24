@@ -7,13 +7,18 @@
 ** @param	char	*var		The environment variable;
 ** @return	int					1 for valid and 0 for invalid.
 */
-int	is_in_env(t_env *env, char *var)
+int	is_in_env(t_mini *mini, char *var)
 {
-	while (env)
+	t_env *cur;
+
+	if (!mini->envs)
+		return (0);
+	cur = mini->envs;
+	while (cur)
 	{
-		if (!ft_strncmp(env->content, var, ft_strlen(var))) // REPLACE
+		if (!ft_strncmp(cur->content, var, ft_strlen(var))) // REPLACE
 			return (1);
-		env = env->next;
+		cur = cur->next;
 	}
 	return (0);
 }

@@ -6,12 +6,15 @@
 ** @param	t_env *env		The pointer to the head of the environment variables linked list;
 ** @return	int				1 for success and 0 for failure.
 */
-int	ft_env(t_env *env)
+int	ft_env(t_mini *mini)
 {
-	while (env)
+	t_env	*cur;
+
+	cur = mini->envs;
+	while (cur)
 	{
-		ft_putendl_fd(env->content, 1);
-		env = env->next;
+		ft_putendl_fd(cur->content, 1);
+		cur = cur->next;
 	}
 	return (1);
 }
