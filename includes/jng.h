@@ -39,19 +39,6 @@
 //Structs
 
 /*
-** Struct that contains signal data
-**
-** str - Buffer string
-** next - linked list pointers to prev or next buffer in history
-*/
-typedef struct s_signal
-{
-	int		sigint;
-	char	*prompt;
-}	t_signal;
-
-
-/*
 ** Struct that contains token data stored in linked list structure
 **
 ** str - Token string
@@ -99,6 +86,22 @@ typedef struct s_mini
 	int			exit_status_code;
 }	t_mini;
 
+/*
+** Struct that contains signal data
+**
+** prompt - The prompt to be printed on the screen
+** *mini - the mini struct pointer
+** sig(x) - various signal switches
+*/
+typedef struct s_signal
+{
+	int		sigint;
+	char	*prompt;
+	t_mini	*mini;
+}	t_signal;
+
+
+
 //Global vars
 extern t_signal g_signal;
 
@@ -129,5 +132,10 @@ int		get_argc(char **args);
 //History functions
 void	push_history(t_mini *mini, char *buff);
 void	print_history(t_mini *mini);
+
+//Signal functions
+void	init_signals(t_mini *mini);
+void	reset_signals(void);
+void	handle_sigint(int pid);
 
 #endif

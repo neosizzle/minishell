@@ -25,11 +25,6 @@ static t_mini	*init_mini(void)
 	return (mini);
 }
 
-// static void test(int pid)
-// {
-// 	printf("\n%s", g_signal.prompt);
-// }
-
 /*
 Entry point.
 
@@ -50,14 +45,13 @@ int	main(int argc, char *argv[])
 		err("Arguments invalid");
 	(void)argv;
 	mini = init_mini();
-	//g_signal.sigint = 0;
-	//g_signal.prompt = 0;
+	init_signals(mini);
 	while (!mini->exit)
 	{
 		cwd = getcwd(NULL, 1024);
 		ft_strlcat(cwd, "@minishell> ", 1024 + 13);
-		//g_signal.prompt = cwd;
-		//signal(SIGINT, &test);
+		g_signal.prompt = cwd;
+		signal(SIGINT, &handle_sigint);
 		buff = readline(cwd);
 		push_history(mini, buff);
 		parse(mini, buff);
