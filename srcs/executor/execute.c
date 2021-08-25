@@ -104,7 +104,7 @@ int	execute(t_mini *mini)
 	{
 		printf("current token: %s\n", curr->str);
 		//get args
-		crmd = cur;
+		cmd = curr;
 		args = get_args(cmd);
 		curr = curr->next;
 		while (curr && curr->type == ARG)
