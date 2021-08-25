@@ -3,7 +3,7 @@
 /*
 ** Gets a newly created and sorted environment variables linked list.
 **
-** @param	t_env	*env		The pointer to the head of the environment variables linked list;
+** @param	t_mini *mini		The mini struct;
 ** @return	t_env*				The sorted environment variables linked list.
 */
 t_env	*get_sorted_env_vars(t_mini *mini)
@@ -47,7 +47,7 @@ int	print_env_var_error(char *arg)
 /*
 ** Prints out every environment variable sorted by alphabetical order.
 **
-** @param	t_env	*env		The pointer to the head of the environment variables linked list;
+** @param	t_mini *mini		The mini struct;
 ** @return	int					1 for success and 0 for failure.
 */
 int	print_sorted_env_vars(t_mini *mini)
@@ -71,7 +71,7 @@ int	print_sorted_env_vars(t_mini *mini)
 **
 ** @param	int		argc		The argument count;
 ** @param	char	**argv		The argument vector;
-** @param	t_env	*env		The pointer to the head of the environment variables linked list;
+** @param	t_mini *mini		The mini struct;
 ** @return	int					1 for success and 0 for failure.
 */
 int	ft_export(int argc, char **argv, t_mini *mini)

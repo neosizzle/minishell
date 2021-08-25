@@ -25,7 +25,7 @@ int	print_exe_path_err(char *path)
 **
 ** @param	int		argc		The argument count;
 ** @param	char	**argv		The argument vector;
-** @param	t_env	*env		The pointer to the head of the environment variable linked list;
+** @param	t_mini *mini		The mini struct;
 ** @return	int					The exit status code.
 */
 int	launch_exe(char *path, char **argv, t_mini *mini)
@@ -38,12 +38,24 @@ int	launch_exe(char *path, char **argv, t_mini *mini)
 	g_global.in_fork = 1;
 	if (pid == 0)
 	{
+		if (mini->pipe_write != -1)
+		{
+			close(mini->pipe_read);
+			dup2(mini->pipe_write, STDOUT_FILENO);
+		}
 		env_arr = get_env_arr(mini);
 		execve(path, argv, env_arr);
 		free_arr(env_arr);
 		exit(0);
 	}
 	else
+	{
+		if (mini->pipe_read != -1)
+		{
+			dup2(mini->pipe_read, STDIN_FILENO);
+			close(mini->pipe_write);
+		}
 		waitpid(pid, &status_code, 0);
+	}
 	return (status_code);
 }

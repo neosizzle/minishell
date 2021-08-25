@@ -74,6 +74,8 @@ typedef struct s_history
 ** envs - head of env linked list
 ** history - head of history linked list
 ** cmd - comamnd exists in current parsing
+** pipe_in - fd for read end of pipe
+** pipe_out - fd for write end of pipe
 ** exit - exit status
 */
 typedef struct s_mini
@@ -82,6 +84,8 @@ typedef struct s_mini
 	t_env		*envs;
 	t_history	*history;
 	int			cmd;
+	int			pipe_read;
+	int			pipe_write;
 	int			exit;
 	int			exit_status_code;
 }	t_mini;

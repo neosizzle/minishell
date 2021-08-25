@@ -14,13 +14,12 @@ static void	print_args(char **args)
 		printf("arg : %s\n", *args);
 		args++;
 	}
-	
 }
 
 /*
-** Given a token linked list, it will get the arguments and convert 
+** Given a token linked list, it will get the arguments and convert
 ** into array of strings.
-** 
+**
 ** @param t_token *tokens Head of tokens linked list
 ** @return char **args The resultant string array.
 */
@@ -53,7 +52,7 @@ static char	**get_args(t_token	*tokens)
 
 /*
 ** Given a command and its args, execute the function appropriately
-** 
+**
 ** @param t_token *cmd		The command to be executed
 ** @param char **args		The arguments
 ** @param t_mini *mini		The mini struct
@@ -80,16 +79,16 @@ int	get_argc(char **args)
 	i = 0;
 	while (args[i])
 		++i;
-	return (i);	
+	return (i);
 }
 
 /*
 ** Calls exes based on token with its args if any
-** 
+**
 ** Converts token arguments into array of strings.
 ** Calls function based on builtin or executable
 ** Move token ptr to nexe non-argument token
-** 
+**
 ** @param t_mini	*mini The mini struct ptr
 ** @return int		status The status code
 ** TODO : add piping & redirection support and fix seg fault when freeing args
@@ -97,33 +96,33 @@ int	get_argc(char **args)
 int	execute(t_mini *mini)
 {
 	t_token	*curr;
-	t_token	*left;
-	t_token	*right;
+	t_token *cmd;
 	char	**args;
 
 	curr = mini->tokens;
 	while (curr)
 	{
-		//find delims 
-		if (has_next_delim(curr))
-		{
-			left = curr;
-			right = get_right_cmd(curr);
-		}
-
+		printf("current token: %s\n", curr->str);
 		//get args
-		args = get_args(curr);
-
-		//execute cmd / change for piping and redir (?)
-		execute_cmd(curr, args, mini);
-		//print_args(args);
-
-		//to next non arg token
+		cmd = curr;
+		args = get_args(cmd);
 		curr = curr->next;
 		while (curr && curr->type == ARG)
 			curr = curr->next;
-		if (curr && curr->type > ARG)
+		if (curr && curr->type == PIPE)
+		{
+			create_pipe(mini);
+			//printf("pipe read: %d write: %d\n", mini->pipe_read, mini->pipe_write);
 			curr = curr->next;
+		}
+		//printf("current cmd: %s\n", cmd->str);
+		//print_args(args);
+		//execute cmd / change for piping and redir (?)
+		execute_cmd(cmd, args, mini);
+
+		//to next non arg token
+		// close_read_pipe(mini);
+		// close_write_pipe(mini);
 		free_arr(args);
 	}
 	return (0);

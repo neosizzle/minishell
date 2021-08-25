@@ -3,7 +3,7 @@
 /*
 ** Checks whether an environment variable is present.
 **
-** @param	t_env	*env		The pointer to the head of the environment variables linked list;
+** @param	t_mini *mini		The mini struct;
 ** @param	char	*var		The environment variable;
 ** @return	int					1 for valid and 0 for invalid.
 */

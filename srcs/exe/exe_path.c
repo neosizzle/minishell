@@ -5,7 +5,7 @@
 **
 ** @param	int		argc		The argument count;
 ** @param	char	**argv		The argument vector;
-** @param	t_env	*env		The pointer to the head of the environment variable linked list;
+** @param	t_mini *mini		The mini struct;
 ** @return	int					The exit status code.
 */
 int	ft_exe_path(int argc, char **argv, t_mini *mini)
