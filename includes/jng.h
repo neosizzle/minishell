@@ -74,9 +74,11 @@ typedef struct s_history
 ** envs - head of env linked list
 ** history - head of history linked list
 ** cmd - comamnd exists in current parsing
-** pipe_in - fd for read end of pipe
-** pipe_out - fd for write end of pipe
+** pipe_read - fd for read end of pipe
+** pipe_write - fd for write end of pipe
 ** exit - exit status
+** exit_status_code - exit status code
+** in_fd - original input fd of minishell
 */
 typedef struct s_mini
 {
@@ -88,6 +90,7 @@ typedef struct s_mini
 	int			pipe_write;
 	int			exit;
 	int			exit_status_code;
+	int			in_fd;
 }	t_mini;
 
 /*
@@ -97,6 +100,7 @@ typedef struct s_mini
 ** *mini - the mini struct pointer
 ** sig(x) - various signal switches
 ** in_fork - 1 if there is a child process and 0 otherwise
+** pipe - 1 if processing a pipe, 0 if not
 */
 typedef struct s_global
 {
@@ -104,6 +108,7 @@ typedef struct s_global
 	char	*prompt;
 	t_mini	*mini;
 	int		in_fork;
+	int		pipe;
 }	t_global;
 
 
@@ -135,8 +140,7 @@ int		execute(t_mini *mini);
 void	exe_builtin(t_mini *mini, char *cmd, char **args);
 void	exe_executable(t_mini *mini, char *cmd, char **args);
 int		get_argc(char **args);
-int		has_next_delim(t_token *curr);
-t_token	*get_right_cmd(t_token *curr);
+void	handle_delims(t_mini *mini, t_token *curr);
 
 //History functions
 void	push_history(t_mini *mini, char *buff);

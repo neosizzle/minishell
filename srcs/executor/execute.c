@@ -102,27 +102,18 @@ int	execute(t_mini *mini)
 	curr = mini->tokens;
 	while (curr)
 	{
-		printf("current token: %s\n", curr->str);
 		//get args
 		cmd = curr;
 		args = get_args(cmd);
 		curr = curr->next;
 		while (curr && curr->type == ARG)
 			curr = curr->next;
-		if (curr && curr->type == PIPE)
-		{
-			create_pipe(mini);
-			//printf("pipe read: %d write: %d\n", mini->pipe_read, mini->pipe_write);
-			curr = curr->next;
-		}
-		//printf("current cmd: %s\n", cmd->str);
+		handle_delims(mini, curr);
 		//print_args(args);
 		//execute cmd / change for piping and redir (?)
 		execute_cmd(cmd, args, mini);
 
 		//to next non arg token
-		// close_read_pipe(mini);
-		// close_write_pipe(mini);
 		free_arr(args);
 	}
 	return (0);

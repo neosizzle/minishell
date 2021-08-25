@@ -11,6 +11,7 @@ void	init_signals(t_mini *mini)
 	g_global.sigint = 0;
 	g_global.prompt = 0;
 	g_global.in_fork = 0;
+	g_global.pipe = 0;
 	g_global.mini = mini;
 }
 

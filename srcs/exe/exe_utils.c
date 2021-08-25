@@ -41,6 +41,7 @@ int	launch_exe(char *path, char **argv, t_mini *mini)
 		if (mini->pipe_write != -1)
 		{
 			close(mini->pipe_read);
+			close_read_pipe(mini);
 			dup2(mini->pipe_write, STDOUT_FILENO);
 		}
 		env_arr = get_env_arr(mini);
@@ -54,6 +55,7 @@ int	launch_exe(char *path, char **argv, t_mini *mini)
 		{
 			dup2(mini->pipe_read, STDIN_FILENO);
 			close(mini->pipe_write);
+			close_write_pipe(mini);
 		}
 		waitpid(pid, &status_code, 0);
 	}

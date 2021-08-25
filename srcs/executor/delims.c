@@ -1,41 +1,18 @@
 #include "minishell.h"
 
 /*
-This function traverses the tokens to finds the next delim
+This function traverses curr and if it sees
+any delims, call helpers seperately
 
-@param t_token *curr	The current token
-@return int				1 if delim found and 0 if not
+@param t_mini* mini		The mini struct
+@param t_token** curr	The current token
+@return void
 */
-int	has_next_delim(t_token *curr)
+void	handle_delims(t_mini *mini, t_token *curr)
 {
-	int	res;
-
-	res = 0;
-	while (curr)
+	if (curr && (curr)->type == PIPE)
 	{
-		if (curr->type > ARG)
-			return (1);
+		create_pipe(mini);
 		curr = curr->next;
 	}
-	return (0);
-}
-
-/*
-This function traverses the tokens to finds the next delim
-
-@param t_token *curr	The current token
-@return int				1 if delim found and 0 if not
-*/
-t_token	*get_right_cmd(t_token *curr)
-{
-	t_token	*res;
-
-	res = curr;
-	while (res->next)
-	{
-		if (res->type > ARG)
-			return (res->next);
-		res = res->next;
-	}
-	return (curr);
 }

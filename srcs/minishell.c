@@ -24,6 +24,7 @@ static t_mini	*init_mini(void)
 	mini->history = 0;
 	mini->pipe_read = -1;
 	mini->pipe_write = -1;
+	mini->in_fd = dup(0);
 	return (mini);
 }
 
@@ -68,14 +69,16 @@ int	main(int argc, char *argv[])
 	{
 		cwd = getcwd(NULL, 1024);
 		ft_strlcat(cwd, "@minishell> ", 1024 + 13);
+		signal(SIGINT, &handle_sigint);
 		reset_signals();
 		g_global.prompt = cwd;
-		signal(SIGINT, &handle_sigint);
 		buff = readline(cwd);
 		if (!buff)
 			handle_sigstop(69);
 		push_history(mini, buff);
 		parse(mini, buff);
+		if (g_global.pipe)
+			dup2(mini->in_fd, 0);
 		free_term(cwd, buff);
 	}
 	free_mini(mini);
