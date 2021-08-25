@@ -14,7 +14,6 @@ static void	print_args(char **args)
 		printf("arg : %s\n", *args);
 		args++;
 	}
-
 }
 
 /*
@@ -124,7 +123,7 @@ int	execute(t_mini *mini)
 		//to next non arg token
 		// close_read_pipe(mini);
 		// close_write_pipe(mini);
+		free_arr(args);
 	}
-	free_arr(args);
 	return (0);
 }

@@ -98,18 +98,18 @@ typedef struct s_mini
 ** sig(x) - various signal switches
 ** in_fork - 1 if there is a child process and 0 otherwise
 */
-typedef struct s_signal
+typedef struct s_global
 {
 	int		sigint;
 	char	*prompt;
 	t_mini	*mini;
 	int		in_fork;
-}	t_signal;
+}	t_global;
 
 
 
 //Global vars
-extern t_signal g_signal;
+extern t_global g_global;
 
 //Error functions
 void	err(char *message);
@@ -128,12 +128,15 @@ char	**ft_split_custom(char *s, char c);
 int		bad_quotes(char *buff);
 int		bad_bs(char *buff);
 void	trim(t_mini *mini);
+void	expand(t_mini *mini);
 
 //Executor functions
 int		execute(t_mini *mini);
 void	exe_builtin(t_mini *mini, char *cmd, char **args);
 void	exe_executable(t_mini *mini, char *cmd, char **args);
 int		get_argc(char **args);
+int		has_next_delim(t_token *curr);
+t_token	*get_right_cmd(t_token *curr);
 
 //History functions
 void	push_history(t_mini *mini, char *buff);
