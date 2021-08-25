@@ -62,6 +62,10 @@ t_env	*get_sorted_env_vars(t_mini *mini);
 */
 int		create_pipe(t_mini *mini);
 
+void	close_write_pipe(t_mini *mini);
+
+void	close_read_pipe(t_mini *mini);
+
 // MISC. UTILS
 
 void	free_arr(char **arr);

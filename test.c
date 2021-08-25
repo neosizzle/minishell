@@ -1,9 +1,6 @@
 #include <stdio.h>
 int main()
 {
-	while(1)
-	{
-		printf("I will run 4ever\n");
-	}
+	printf("Hello world\n");
 	return (0);
 }
