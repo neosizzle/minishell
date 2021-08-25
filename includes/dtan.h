@@ -53,6 +53,11 @@ int		is_valid_env_var(char *var);
 
 t_env	*get_sorted_env_vars(t_mini *mini);
 
+/*
+**	PIPE UTILS
+*/
+int		create_pipe(t_mini *mini);
+
 // MISC. UTILS
 
 void	free_arr(char **arr);

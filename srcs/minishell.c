@@ -22,6 +22,8 @@ static t_mini	*init_mini(void)
 	mini->tokens = 0;
 	mini->envs = NULL;
 	mini->history = 0;
+	mini->pipe_read = -1;
+	mini->pipe_write = -1;
 	return (mini);
 }
 

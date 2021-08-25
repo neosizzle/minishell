@@ -11,6 +11,8 @@ void	exe_builtin(t_mini *mini, char *cmd, char **args)
 {
 	int	argc;
 
+	if (mini->pipe_read != -1 || mini->pipe_write != -1)
+		return ;
 	argc = get_argc(args);
 	if (!ft_strcmp(cmd, "echo"))
 		ft_echo(argc, args);
