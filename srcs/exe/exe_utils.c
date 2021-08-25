@@ -35,7 +35,7 @@ int	launch_exe(char *path, char **argv, t_mini *mini)
 	int		status_code;
 
 	pid = fork();
-	g_signal.in_fork = 1;
+	g_global.in_fork = 1;
 	if (pid == 0)
 	{
 		env_arr = get_env_arr(mini);

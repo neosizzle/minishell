@@ -91,6 +91,7 @@ void	parse(t_mini *mini, char *buff)
 	while (split[++i])
 		token_addend(split[i], mini);
 	trim(mini);
+	expand(mini);
 	//print_tokens(mini->tokens);
 	execute(mini);
 	mini->cmd = 1;
