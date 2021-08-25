@@ -1,6 +1,6 @@
 #include "minishell.h"
 
-t_signal	g_signal;
+t_global	g_global;
 
 /*
 Initializes mini struct.
@@ -67,7 +67,7 @@ int	main(int argc, char *argv[])
 		cwd = getcwd(NULL, 1024);
 		ft_strlcat(cwd, "@minishell> ", 1024 + 13);
 		reset_signals();
-		g_signal.prompt = cwd;
+		g_global.prompt = cwd;
 		signal(SIGINT, &handle_sigint);
 		buff = readline(cwd);
 		if (!buff)

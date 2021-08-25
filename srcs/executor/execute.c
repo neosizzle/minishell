@@ -2,20 +2,20 @@
 
 //REMOVE IN PROD
 //Test function I made to print the args.
-// static void	print_args(char **args)
-// {
-// 	if (!args)
-// 	{
-// 		printf("No args\n");
-// 		return ;
-// 	}
-// 	while (*args)
-// 	{
-// 		printf("arg : %s\n", *args);
-// 		args++;
-// 	}
+static void	print_args(char **args)
+{
+	if (!args)
+	{
+		printf("No args\n");
+		return ;
+	}
+	while (*args)
+	{
+		printf("arg : %s\n", *args);
+		args++;
+	}
 	
-// }
+}
 
 /*
 ** Given a token linked list, it will get the arguments and convert 
@@ -97,11 +97,20 @@ int	get_argc(char **args)
 int	execute(t_mini *mini)
 {
 	t_token	*curr;
+	t_token	*left;
+	t_token	*right;
 	char	**args;
 
 	curr = mini->tokens;
 	while (curr)
 	{
+		//find delims 
+		if (has_next_delim(curr))
+		{
+			left = curr;
+			right = get_right_cmd(curr);
+		}
+
 		//get args
 		args = get_args(curr);
 
@@ -113,7 +122,9 @@ int	execute(t_mini *mini)
 		curr = curr->next;
 		while (curr && curr->type == ARG)
 			curr = curr->next;
+		if (curr && curr->type > ARG)
+			curr = curr->next;
+		free_arr(args);
 	}
-	free_arr(args);
 	return (0);
 }

@@ -11,6 +11,9 @@ ${NAME} :
 	make -C libft; make bonus -C libft;
 	${GCC} ${INC} ${SRCS} ${INC_LIBFT} ${OTHER_LIBS} -o ${NAME}
 
+nolibft : 
+	${GCC} ${INC} ${SRCS} ${INC_LIBFT} ${OTHER_LIBS} -o ${NAME}
+
 clean :
 	rm -f *.o
 	rm -f libft/*.o

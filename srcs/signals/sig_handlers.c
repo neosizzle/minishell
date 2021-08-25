@@ -9,10 +9,10 @@
 void	handle_sigint(int pid)
 {
 	(void) pid;
-	if (g_signal.in_fork)
+	if (g_global.in_fork)
 		printf("\n");
 	else
-	printf("\n%s", g_signal.prompt);
+	printf("\n%s", g_global.prompt);
 }
 
 /*
