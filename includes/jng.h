@@ -96,12 +96,14 @@ typedef struct s_mini
 ** prompt - The prompt to be printed on the screen
 ** *mini - the mini struct pointer
 ** sig(x) - various signal switches
+** in_fork - 1 if there is a child process and 0 otherwise
 */
 typedef struct s_signal
 {
 	int		sigint;
 	char	*prompt;
 	t_mini	*mini;
+	int		in_fork;
 }	t_signal;
 
 

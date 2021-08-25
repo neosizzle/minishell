@@ -63,8 +63,8 @@ static void	execute_cmd(t_token *cmd, char **args, t_mini *mini)
 {
 	if (cmd->type == CMD_BUILTIN)
 		exe_builtin(mini, cmd->str, args);
-	// if (cmd->type == CMD_EXE)
-	// 	exe_executable(cmd->str, args);
+	if (cmd->type == CMD_EXE)
+		exe_executable(mini, cmd->str, args);
 }
 
 /*

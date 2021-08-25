@@ -28,6 +28,19 @@ static t_mini	*init_mini(void)
 }
 
 /*
+Initializes vars for mini struct.
+
+Assigns default environment vars
+
+@param t_mini*	mini	The mini struct
+@return void
+*/
+static void	init_vars(t_mini *mini)
+{
+	add_env_var(mini, "PATH=/bin:/usr/bin");
+}
+
+/*
 Entry point.
 
 Initializes variables and structs.
@@ -49,11 +62,13 @@ int	main(int argc, char *argv[])
 	(void)argv;
 	mini = init_mini();
 	init_signals(mini);
+	init_vars(mini);
 	signal(SIGQUIT, &handle_sigquit);
 	while (!mini->exit)
 	{
 		cwd = getcwd(NULL, 1024);
 		ft_strlcat(cwd, "@minishell> ", 1024 + 13);
+		reset_signals();
 		g_signal.prompt = cwd;
 		signal(SIGINT, &handle_sigint);
 		buff = readline(cwd);
