@@ -1,4 +1,6 @@
 #include "minishell.h"
+//custom ft_split func, does the same thing as normal ft_split 
+//except that this version ignores quotes
 
 static void	ft_strcpy(char *dst, char *begin, char *end)
 {

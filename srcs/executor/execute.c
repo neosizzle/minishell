@@ -67,10 +67,10 @@ static void	execute_cmd(t_token *cmd, char **args, t_mini *mini)
 }
 
 /*
-Given an array of strings, count the number of string in that array
-
-@param char** args	The array of strings
-@return int argc The number of strings
+** Given an array of strings, count the number of string in that array
+** 
+** @param char** args	The array of strings
+** @return int argc The number of strings
 */
 int	get_argc(char **args)
 {
@@ -91,7 +91,7 @@ int	get_argc(char **args)
 **
 ** @param t_mini	*mini The mini struct ptr
 ** @return int		status The status code
-** TODO : add piping & redirection support and fix seg fault when freeing args
+** TODO : redirection support
 */
 int	execute(t_mini *mini)
 {

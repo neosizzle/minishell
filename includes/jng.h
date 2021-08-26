@@ -132,6 +132,7 @@ int		get_type(t_mini *mini, char *token);
 char	**ft_split_custom(char *s, char c);
 int		bad_quotes(char *buff);
 int		bad_bs(char *buff);
+int		bad_delims(t_mini *mini, char**split);
 void	trim(t_mini *mini);
 void	expand(t_mini *mini);
 
