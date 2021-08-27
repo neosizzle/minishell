@@ -4,11 +4,11 @@ t_global	g_global;
 
 /*
 ** Initializes mini struct.
-** 
+**
 ** Mallocs memory for a mini struct.
 ** Sets all primitive data types to 0.
 ** (Not sure)Mallocs memory for non primitive data types.
-** 
+**
 ** @param void nothing
 ** @return t_mini* The pointer to new mini struct
 */
@@ -24,6 +24,8 @@ static t_mini	*init_mini(void)
 	mini->history = 0;
 	mini->pipe_read = -1;
 	mini->pipe_write = -1;
+	mini->redir_in = -1;
+	mini->redir_out = -1;
 	mini->in_fd = dup(0);
 	mini->heredoc = 0;
 	return (mini);
@@ -31,9 +33,9 @@ static t_mini	*init_mini(void)
 
 /*
 ** Initializes vars for mini struct.
-** 
+**
 ** Assigns default environment vars
-** 
+**
 ** @param t_mini*	mini	The mini struct
 ** @return void
 */
@@ -44,7 +46,7 @@ static void	init_vars(t_mini *mini)
 
 /*
 ** Entry point.
-** 
+**
 ** Initializes variables and structs.
 ** Set up signal handlers.
 ** Start parsing next line as long as shell is active.
