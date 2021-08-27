@@ -93,6 +93,8 @@ typedef struct s_mini
 	int			redir_in;
 	int			redir_out;
 	int			in_fd;
+	int			stdin_fd;
+	int			stdout_fd;
 	int			exit;
 	int			exit_status_code;
 	int			heredoc;

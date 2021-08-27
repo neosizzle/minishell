@@ -1,7 +1,6 @@
 NAME=minishell
 GCC=gcc -Wall -Wextra -fsanitize=address -g
-GCC_NO_FLAG=gcc
-SRCS=srcs/*.c srcs/free/*.c srcs/err/*.c srcs/parser/*.c srcs/builtin/*.c srcs/env/*.c srcs/exe/*.c srcs/executor/*.c srcs/history/*.c srcs/signals/*.c srcs/pipe/*.c srcs/heredoc/*.c
+SRCS=srcs/*.c srcs/free/*.c srcs/err/*.c srcs/parser/*.c srcs/builtin/*.c srcs/env/*.c srcs/exe/*.c srcs/executor/*.c srcs/history/*.c srcs/signals/*.c srcs/pipe/*.c srcs/redirect/*.c srcs/heredoc/*.c
 INC=-I includes
 INC_LIBFT=-L libft -lft
 OTHER_LIBS=-lreadline
@@ -12,7 +11,7 @@ ${NAME} :
 	make -C libft; make bonus -C libft;
 	${GCC} ${INC} ${SRCS} ${INC_LIBFT} ${OTHER_LIBS} -o ${NAME}
 
-nolibft : 
+nolibft :
 	${GCC} ${INC} ${SRCS} ${INC_LIBFT} ${OTHER_LIBS} -o ${NAME}
 
 clean :

@@ -28,6 +28,8 @@ static t_mini	*init_mini(void)
 	mini->redir_out = -1;
 	mini->in_fd = dup(0);
 	mini->heredoc = 0;
+	mini->stdin_fd = dup(STDIN_FILENO);
+	mini->stdout_fd = dup(STDOUT_FILENO);
 	return (mini);
 }
 
@@ -73,6 +75,7 @@ int	main(int argc, char *argv[])
 	signal(SIGQUIT, &handle_sigquit);
 	while (!mini->exit)
 	{
+		printf("stdin: %d stdout: %d isatty: %d\n", STDIN_FILENO, STDOUT_FILENO, isatty(STDOUT_FILENO));
 		cwd = getcwd(NULL, 1024);
 		ft_strlcat(cwd, "@minishell> ", 1024 + 13);
 		signal(SIGINT, &handle_sigint);
@@ -86,6 +89,7 @@ int	main(int argc, char *argv[])
 		if (g_global.pipe)
 			dup2(mini->in_fd, 0);
 		free_term(cwd, buff);
+		reset_std(mini);
 	}
 	free_mini(mini);
 }

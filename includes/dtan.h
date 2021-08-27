@@ -62,13 +62,19 @@ t_env	*get_sorted_env_vars(t_mini *mini);
 */
 int		create_pipe(t_mini *mini);
 
-void	close_write_pipe(t_mini *mini);
+/*
+**	REDIRECTION UTILS
+*/
+int		redir_input(t_mini *mini, t_token *token);
 
-void	close_read_pipe(t_mini *mini);
+int		redir_output(t_mini *mini, t_token *token, int type);
 
 // MISC. UTILS
 
 void	free_arr(char **arr);
 
+void	reset_std(t_mini *mini);
+
+void	close_fds(t_mini *mini);
 
 #endif

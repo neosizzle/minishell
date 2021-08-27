@@ -2,7 +2,7 @@
 
 /*
 ** Handles sigint signals
-** 
+**
 ** @param int	pid		The pid passed in by signal()
 ** @return void
 */
@@ -13,12 +13,12 @@ void	handle_sigint(int pid)
 	if (g_global.in_fork)
 		printf("\n");
 	else
-	printf("\n%s", g_global.prompt);
+		printf("\n%s", g_global.prompt);
 }
 
 /*
 ** Handles sigquit signals
-** 
+**
 ** @param int	pid		The pid passed in by signal()
 ** @return void
 ** TODO : executable implementation
@@ -31,7 +31,7 @@ void	handle_sigquit(int pid)
 
 /*
 ** Handles sigstop signals
-** 
+**
 ** @param int	pid		The pid passed in by signal()
 ** @return void
 ** TODO : executable implementation

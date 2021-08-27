@@ -1,7 +1,0 @@
-token: logscmd: env
-PATH=/bin:/usr/bin
-current token: logs
-cmd: logs
-(reset) stdout is terminal? 0
-stdin: 0 stdout: 1 isatty: 0
-/mnt/c/Users/Dylon/Desktop/Work/42cursus/minishell@minishell> 
