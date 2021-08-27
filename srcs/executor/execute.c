@@ -60,6 +60,7 @@ static char	**get_args(t_token	*tokens)
 */
 static void	execute_cmd(t_token *cmd, char **args, t_mini *mini)
 {
+	printf("cmd: %s\n", cmd->str);
 	if (cmd->type == CMD_BUILTIN)
 		exe_builtin(mini, cmd->str, args);
 	if (cmd->type == CMD_EXE)
@@ -68,7 +69,7 @@ static void	execute_cmd(t_token *cmd, char **args, t_mini *mini)
 
 /*
 ** Given an array of strings, count the number of string in that array
-** 
+**
 ** @param char** args	The array of strings
 ** @return int argc The number of strings
 */
@@ -98,6 +99,7 @@ int	execute(t_mini *mini)
 	t_token	*curr;
 	t_token *cmd;
 	char	**args;
+	int		type;
 
 	curr = mini->tokens;
 	while (curr)
@@ -108,7 +110,25 @@ int	execute(t_mini *mini)
 		curr = curr->next;
 		while (curr && curr->type == ARG)
 			curr = curr->next;
-		handle_delims(mini, curr, cmd);
+		if (curr && curr->type == PIPE)
+		{
+			curr = curr->next;
+			create_pipe(mini);
+			//printf("pipe read: %d write: %d\n", mini->pipe_read, mini->pipe_write);
+		}
+		else if (curr && curr->type == INPUT)
+		{
+			curr = curr->next;
+			redir_input(mini, curr);
+		}
+		else if (curr && (curr->type == APPEND || curr->type == TRUNC))
+		{
+			printf("type: %d\n", curr->type);
+			type = curr->type;
+			curr = curr->next;
+			redir_output(mini, curr, type);
+		}
+		//printf("current cmd: %s\n", cmd->str);
 		//print_args(args);
 		//execute cmd / change for piping and redir (?)
 		//printf("[EXE] New cmd, %s, type %d\n", cmd->str, cmd->type);
@@ -116,5 +136,6 @@ int	execute(t_mini *mini)
 		//to next non arg token
 		free_arr(args);
 	}
+	close_fds(mini);
 	return (0);
 }
