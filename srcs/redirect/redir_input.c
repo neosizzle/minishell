@@ -1,5 +1,12 @@
 #include "minishell.h"
 
+/*
+** Remaps standard input to a new fd.
+**
+** @param	t_mini *mini		The mini struct;
+** @param	t_token *token		The token struct;
+** @return	int					1 for success and 0 for failure.
+*/
 int	redir_input(t_mini *mini, t_token *token)
 {
 	if (mini->redir_in != -1)

@@ -1,5 +1,11 @@
 #include "minishell.h"
 
+/*
+** Creates a pipe and stores the read and write fds in the mini struct.
+**
+** @param	t_mini *mini		The mini struct;
+** @return	int					1 for success and 0 for failure.
+*/
 int	create_pipe(t_mini *mini)
 {
 	pid_t	pid;
