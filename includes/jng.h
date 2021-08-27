@@ -127,6 +127,7 @@ void	free_mini(t_mini *mini);
 void	free_tokens(t_token *head);
 void	free_term(char *cwd, char *buff);
 void	free_history(t_history *head);
+void	free_heredoc(char **env_arr, t_mini* mini);
 
 //Parsing functions
 void	parse(t_mini *mini, char *buff);
