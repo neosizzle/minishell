@@ -1,11 +1,11 @@
 #include "minishell.h"
 
 /*
-Adds history to history linkedlist in mini struct.
-
-@param t_mini	*mini		The mini struct 
-@param char		*buff		The cmd string
-@return void
+** Adds history to history linkedlist in mini struct.
+** 
+** @param t_mini	*mini		The mini struct 
+** @param char		*buff		The cmd string
+** @return void
 */
 void	push_history(t_mini *mini, char *buff)
 {
@@ -27,10 +27,10 @@ void	push_history(t_mini *mini, char *buff)
 }
 
 /*
-Prints history given the mini struct
-
-@param t_mini	*mini		The mini struct 
-@return void
+** Prints history given the mini struct
+** 
+** @param t_mini	*mini		The mini struct 
+** @return void
 */
 void	print_history(t_mini *mini)
 {

@@ -48,8 +48,8 @@ static void	token_addend(char *data, t_mini *mini)
 	while (prev->next)
 		prev = prev->next;
 	temp = new_token(mini, data);
-	temp->prev = prev;
 	prev->next = temp;
+	prev->next->prev = prev;
 }
 
 /*
@@ -58,15 +58,17 @@ static void	token_addend(char *data, t_mini *mini)
 ** Check for bad quotes and formatting.
 ** Split the buffer using spaces as deliminators.
 ** Generate token linked list using split buffer.
-** Returns to prompt if there is not any buffer
+** Returns to prompt if there is not any buffer.
 ** Trim the quotes if any.
+** Expand environment variables.
+** Check for invalid deliminators
 ** Executes the buffer.
 ** Frees the tokens
 **
 ** @param	t_mini *mini	the mini struct ptr;
 ** @param	char	*buff	the buffer string;
 ** @return void
-** TODO : handle dquotes and quotes (custom ft_split)
+** TODO :  \' inhibit all interpretation of a sequence of characters.
 */
 void	parse(t_mini *mini, char *buff)
 {
@@ -75,10 +77,7 @@ void	parse(t_mini *mini, char *buff)
 	t_token *head;
 
 	if (bad_quotes(buff) || bad_bs(buff))
-	{
-		err_noexit("Bad syntax");
 		return ;
-	}
 	split = ft_split_custom(buff , ' ');
 	if (!*split)
 	{
@@ -93,6 +92,8 @@ void	parse(t_mini *mini, char *buff)
 	trim(mini);
 	expand(mini);
 	//print_tokens(mini->tokens);
+	if (bad_delims(mini, split))
+		return ;
 	execute(mini);
 	mini->cmd = 1;
 	free_tokens(mini->tokens);

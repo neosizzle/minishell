@@ -74,9 +74,13 @@ typedef struct s_history
 ** envs - head of env linked list
 ** history - head of history linked list
 ** cmd - comamnd exists in current parsing
-** pipe_in - fd for read end of pipe
-** pipe_out - fd for write end of pipe
+** pipe_read - fd for read end of pipe
+** pipe_write - fd for write end of pipe
+** in_fd - original stdin fd
 ** exit - exit status
+** exit_status_code - exit status code
+** heredoc - 1 when processing heredoc and 0 otherwise
+** hererdoc_buff - the heredoc buffer
 */
 typedef struct s_mini
 {
@@ -86,8 +90,11 @@ typedef struct s_mini
 	int			cmd;
 	int			pipe_read;
 	int			pipe_write;
+	int			in_fd;
 	int			exit;
 	int			exit_status_code;
+	int			heredoc;
+	char		*heredoc_buff;
 }	t_mini;
 
 /*
@@ -97,6 +104,7 @@ typedef struct s_mini
 ** *mini - the mini struct pointer
 ** sig(x) - various signal switches
 ** in_fork - 1 if there is a child process and 0 otherwise
+** pipe - 1 if processing a pipe, 0 if not
 */
 typedef struct s_global
 {
@@ -104,9 +112,8 @@ typedef struct s_global
 	char	*prompt;
 	t_mini	*mini;
 	int		in_fork;
+	int		pipe;
 }	t_global;
-
-
 
 //Global vars
 extern t_global g_global;
@@ -127,6 +134,7 @@ int		get_type(t_mini *mini, char *token);
 char	**ft_split_custom(char *s, char c);
 int		bad_quotes(char *buff);
 int		bad_bs(char *buff);
+int		bad_delims(t_mini *mini, char**split);
 void	trim(t_mini *mini);
 void	expand(t_mini *mini);
 
@@ -135,8 +143,7 @@ int		execute(t_mini *mini);
 void	exe_builtin(t_mini *mini, char *cmd, char **args);
 void	exe_executable(t_mini *mini, char *cmd, char **args);
 int		get_argc(char **args);
-int		has_next_delim(t_token *curr);
-t_token	*get_right_cmd(t_token *curr);
+void	handle_delims(t_mini *mini, t_token *curr, t_token *cmd);
 
 //History functions
 void	push_history(t_mini *mini, char *buff);
@@ -148,5 +155,9 @@ void	reset_signals(void);
 void	handle_sigint(int pid);
 void	handle_sigquit(int pid);
 void	handle_sigstop(int pid);
+
+//Redirection functions (HEREDOC)
+char	*create_heredoc(char *delim);
+int		launch_heredoc(t_mini *mini, char *path, char **argv);
 
 #endif

@@ -67,10 +67,10 @@ static void	execute_cmd(t_token *cmd, char **args, t_mini *mini)
 }
 
 /*
-Given an array of strings, count the number of string in that array
-
-@param char** args	The array of strings
-@return int argc The number of strings
+** Given an array of strings, count the number of string in that array
+** 
+** @param char** args	The array of strings
+** @return int argc The number of strings
 */
 int	get_argc(char **args)
 {
@@ -91,7 +91,7 @@ int	get_argc(char **args)
 **
 ** @param t_mini	*mini The mini struct ptr
 ** @return int		status The status code
-** TODO : add piping & redirection support and fix seg fault when freeing args
+** TODO : redirection support
 */
 int	execute(t_mini *mini)
 {
@@ -102,27 +102,18 @@ int	execute(t_mini *mini)
 	curr = mini->tokens;
 	while (curr)
 	{
-		printf("current token: %s\n", curr->str);
 		//get args
 		cmd = curr;
 		args = get_args(cmd);
 		curr = curr->next;
 		while (curr && curr->type == ARG)
 			curr = curr->next;
-		if (curr && curr->type == PIPE)
-		{
-			create_pipe(mini);
-			//printf("pipe read: %d write: %d\n", mini->pipe_read, mini->pipe_write);
-			curr = curr->next;
-		}
-		//printf("current cmd: %s\n", cmd->str);
+		handle_delims(mini, curr, cmd);
 		//print_args(args);
 		//execute cmd / change for piping and redir (?)
+		//printf("[EXE] New cmd, %s, type %d\n", cmd->str, cmd->type);
 		execute_cmd(cmd, args, mini);
-
 		//to next non arg token
-		// close_read_pipe(mini);
-		// close_write_pipe(mini);
 		free_arr(args);
 	}
 	return (0);

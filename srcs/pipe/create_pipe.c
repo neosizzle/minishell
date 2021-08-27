@@ -6,6 +6,7 @@ int	create_pipe(t_mini *mini)
 	int		pipefd[2];
 	int		status;
 
+	g_global.pipe = 1;
 	status = pipe(pipefd);
 	if (status < 0)
 	{

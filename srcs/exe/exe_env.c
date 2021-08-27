@@ -52,6 +52,8 @@ int	ft_exe_env(int argc, char **argv, t_mini *mini)
 	}
 	if (path == NULL)
 		status_code = launch_exe(argv[0], argv, mini);
+	else if (mini->heredoc)
+		status_code = launch_heredoc(mini, path, argv);
 	else
 		status_code = launch_exe(path, argv, mini);
 	free_arr(paths);

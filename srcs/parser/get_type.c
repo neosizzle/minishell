@@ -49,11 +49,11 @@ static int	is_delimiter(char *token)
 }
 
 /*
-Function to get the token type
-
-@param t_mini	*mini 	the mini struct pointer
-@param char		*token	 the token string
-@return int		the token type macro
+** Function to get the token type
+** 
+** @param t_mini	*mini 	the mini struct pointer
+** @param char		*token	 the token string
+** @return int		the token type macro
 */
 int	get_type(t_mini *mini, char *token)
 {

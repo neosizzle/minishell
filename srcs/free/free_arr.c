@@ -1,5 +1,11 @@
 #include "minishell.h"
 
+/*
+** Frees array of strings
+** 
+** @param char **arr	The array of strings
+** @return void
+*/
 void	free_arr(char **arr)
 {
 	int	i;

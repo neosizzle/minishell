@@ -74,5 +74,7 @@ void	free_mini(t_mini *mini)
 		free_envs(mini);
 	if (mini->history)
 		free_history(mini->history);
+	if (mini->heredoc_buff)
+		free(mini->heredoc_buff);
 	free(mini);
 }
