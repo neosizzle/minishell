@@ -48,8 +48,8 @@ static void	token_addend(char *data, t_mini *mini)
 	while (prev->next)
 		prev = prev->next;
 	temp = new_token(mini, data);
-	temp->prev = prev;
 	prev->next = temp;
+	prev->next->prev = prev;
 }
 
 /*
@@ -68,7 +68,7 @@ static void	token_addend(char *data, t_mini *mini)
 ** @param	t_mini *mini	the mini struct ptr;
 ** @param	char	*buff	the buffer string;
 ** @return void
-** TODO : handle dquotes and quotes (custom ft_split)
+** TODO :  \' inhibit all interpretation of a sequence of characters.
 */
 void	parse(t_mini *mini, char *buff)
 {

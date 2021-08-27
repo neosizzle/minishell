@@ -108,11 +108,11 @@ int	execute(t_mini *mini)
 		curr = curr->next;
 		while (curr && curr->type == ARG)
 			curr = curr->next;
-		handle_delims(mini, curr);
+		handle_delims(mini, curr, cmd);
 		//print_args(args);
 		//execute cmd / change for piping and redir (?)
+		//printf("[EXE] New cmd, %s, type %d\n", cmd->str, cmd->type);
 		execute_cmd(cmd, args, mini);
-
 		//to next non arg token
 		free_arr(args);
 	}

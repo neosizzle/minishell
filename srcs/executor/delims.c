@@ -8,11 +8,19 @@
 ** @param t_token** curr	The current token
 ** @return void
 */
-void	handle_delims(t_mini *mini, t_token *curr)
+void	handle_delims(t_mini *mini, t_token *curr, t_token *cmd)
 {
-	if (curr && (curr)->type == PIPE)
+	if (curr && curr->type == PIPE)
 	{
 		create_pipe(mini);
 		curr = curr->next;
+	}
+	if (curr && curr->type == HEREDOC)
+	{
+		char *res = create_heredoc(curr->next->str);
+		mini->heredoc = 1;
+		mini->heredoc_buff = res;
+		curr->next->type = ARG;
+		cmd = curr->next->next;
 	}
 }

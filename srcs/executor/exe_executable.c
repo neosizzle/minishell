@@ -15,7 +15,8 @@ void	exe_executable(t_mini *mini, char *cmd, char **args)
 	argc = 0;
 	while (args[argc])
 		argc++;
-	//ft_exe_path(argc, args, mini);
-	//printf("Code : %d\n", code);
+	// if (ft_exe_path(argc, args, mini) == -1)
+	// 	ft_exe_env(argc, args, mini);
+	// ft_exe_path(argc, args, mini);
 	ft_exe_env(argc, args, mini);
 }

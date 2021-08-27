@@ -76,9 +76,11 @@ typedef struct s_history
 ** cmd - comamnd exists in current parsing
 ** pipe_read - fd for read end of pipe
 ** pipe_write - fd for write end of pipe
+** in_fd - original stdin fd
 ** exit - exit status
 ** exit_status_code - exit status code
-** in_fd - original input fd of minishell
+** heredoc - 1 when processing heredoc and 0 otherwise
+** hererdoc_buff - the heredoc buffer
 */
 typedef struct s_mini
 {
@@ -88,9 +90,11 @@ typedef struct s_mini
 	int			cmd;
 	int			pipe_read;
 	int			pipe_write;
+	int			in_fd;
 	int			exit;
 	int			exit_status_code;
-	int			in_fd;
+	int			heredoc;
+	char		*heredoc_buff;
 }	t_mini;
 
 /*
@@ -110,8 +114,6 @@ typedef struct s_global
 	int		in_fork;
 	int		pipe;
 }	t_global;
-
-
 
 //Global vars
 extern t_global g_global;
@@ -141,7 +143,7 @@ int		execute(t_mini *mini);
 void	exe_builtin(t_mini *mini, char *cmd, char **args);
 void	exe_executable(t_mini *mini, char *cmd, char **args);
 int		get_argc(char **args);
-void	handle_delims(t_mini *mini, t_token *curr);
+void	handle_delims(t_mini *mini, t_token *curr, t_token *cmd);
 
 //History functions
 void	push_history(t_mini *mini, char *buff);
@@ -153,5 +155,9 @@ void	reset_signals(void);
 void	handle_sigint(int pid);
 void	handle_sigquit(int pid);
 void	handle_sigstop(int pid);
+
+//Redirection functions (HEREDOC)
+char	*create_heredoc(char *delim);
+int		launch_heredoc(t_mini *mini, char *path, char **argv);
 
 #endif

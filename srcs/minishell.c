@@ -25,6 +25,7 @@ static t_mini	*init_mini(void)
 	mini->pipe_read = -1;
 	mini->pipe_write = -1;
 	mini->in_fd = dup(0);
+	mini->heredoc = 0;
 	return (mini);
 }
 

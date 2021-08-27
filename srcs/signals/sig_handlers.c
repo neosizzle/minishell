@@ -9,6 +9,7 @@
 void	handle_sigint(int pid)
 {
 	(void) pid;
+	g_global.sigint = 1;
 	if (g_global.in_fork)
 		printf("\n");
 	else
