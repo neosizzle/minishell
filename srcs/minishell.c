@@ -4,11 +4,11 @@ t_global	g_global;
 
 /*
 ** Initializes mini struct.
-** 
+**
 ** Mallocs memory for a mini struct.
 ** Sets all primitive data types to 0.
 ** (Not sure)Mallocs memory for non primitive data types.
-** 
+**
 ** @param void nothing
 ** @return t_mini* The pointer to new mini struct
 */
@@ -24,17 +24,21 @@ static t_mini	*init_mini(void)
 	mini->history = 0;
 	mini->pipe_read = -1;
 	mini->pipe_write = -1;
+	mini->redir_in = -1;
+	mini->redir_out = -1;
 	mini->in_fd = dup(0);
 	mini->heredoc = 0;
 	mini->heredoc_buff = 0;
+	mini->stdin_fd = dup(STDIN_FILENO);
+	mini->stdout_fd = dup(STDOUT_FILENO);
 	return (mini);
 }
 
 /*
 ** Initializes vars for mini struct.
-** 
+**
 ** Assigns default environment vars
-** 
+**
 ** @param t_mini*	mini	The mini struct
 ** @return void
 */
@@ -45,7 +49,7 @@ static void	init_vars(t_mini *mini)
 
 /*
 ** Entry point.
-** 
+**
 ** Initializes variables and structs.
 ** Set up signal handlers.
 ** Start parsing next line as long as shell is active.
@@ -72,6 +76,7 @@ int	main(int argc, char *argv[])
 	signal(SIGQUIT, &handle_sigquit);
 	while (!mini->exit)
 	{
+		printf("stdin: %d stdout: %d isatty: %d\n", STDIN_FILENO, STDOUT_FILENO, isatty(STDOUT_FILENO));
 		cwd = getcwd(NULL, 1024);
 		ft_strlcat(cwd, "@minishell> ", 1024 + 13);
 		signal(SIGINT, &handle_sigint);
@@ -85,6 +90,7 @@ int	main(int argc, char *argv[])
 		if (g_global.pipe)
 			dup2(mini->in_fd, 0);
 		free_term(cwd, buff);
+		reset_std(mini);
 	}
 	free_mini(mini);
 }
