@@ -24,6 +24,7 @@
 ** pipe : '|'
 ** and : '&&'
 ** or : '||'
+** semi : ';'
 */
 # define CMD_BUILTIN 1
 # define CMD_EXE 2
@@ -34,7 +35,8 @@
 # define HEREDOC 7
 # define PIPE 8
 # define AND 9
-# define OR 0
+# define OR 10
+# define SEMI 11
 
 //Structs
 
@@ -109,6 +111,7 @@ typedef struct s_mini
 ** sig(x) - various signal switches
 ** in_fork - 1 if there is a child process and 0 otherwise
 ** pipe - 1 if processing a pipe, 0 if not
+** pipe - 1 if processing a quote, 0 if not
 */
 typedef struct s_global
 {
@@ -117,6 +120,7 @@ typedef struct s_global
 	t_mini	*mini;
 	int		in_fork;
 	int		pipe;
+	int		quote;
 }	t_global;
 
 //Global vars

@@ -45,6 +45,8 @@ static int	is_delimiter(char *token)
 		return (AND);
 	if (!ft_strcmp(token, "||"))
 		return (OR);
+	if (!ft_strcmp(token, ";"))
+		return (SEMI);
 	return (0);
 }
 

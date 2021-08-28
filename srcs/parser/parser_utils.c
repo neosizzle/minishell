@@ -13,6 +13,8 @@ static void	trim_quotes(char **str)
 
 	if (!(**str == '\'' || **str == '\"'))
 		return ;
+	if (**str == '\'')
+		g_global.quote = 1;
 	len = ft_strlen(*str);
 	temp = ft_substr(*str, 1, len - 2);
 	free(*str);
@@ -36,7 +38,7 @@ static void	trim_bs(char **str)
 	combined = ft_strdup(*str);
 	while (combined[bs_idx])
 	{
-		if (combined[bs_idx] == '\\')
+		if (combined[bs_idx] == '\\' && combined[bs_idx + 1] != '$')
 		{
 			left = ft_substr(combined, 0, bs_idx);
 			right = ft_substr(combined, bs_idx , ft_strlen(combined));
