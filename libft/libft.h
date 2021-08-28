@@ -99,4 +99,5 @@ t_env	*ft_lstmap(t_env *env);
 //Additional functions
 int		ft_strcmp(char *s1, char *s2);
 
+char	*ft_strrepl(char *str, char *repl, int start, int end);
 #endif

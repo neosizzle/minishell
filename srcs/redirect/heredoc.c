@@ -8,7 +8,7 @@
 */
 char	*create_heredoc(char *delim)
 {
- 	char	*buff;
+	char	*buff;
 	char	*res;
 	char	*temp;
 	int		exit_status;
@@ -62,13 +62,12 @@ char	*create_heredoc(char *delim)
 int	launch_heredoc(t_mini *mini, char *path, char **argv)
 {
 	char	**env_arr;
-	char	*res;
+	int		heredoc_fd[2];
+	pid_t	pid;
 
 	env_arr = get_env_arr(mini);
-	res = mini->heredoc_buff;
-	int	heredoc_fd[2];
 	pipe(heredoc_fd);
-	pid_t pid = fork();
+	pid = fork();
 	if (pid == 0) // child
 	{
 		close(heredoc_fd[1]);
@@ -80,12 +79,11 @@ int	launch_heredoc(t_mini *mini, char *path, char **argv)
 	else // parent
 	{
 		close(heredoc_fd[0]);
-		write(heredoc_fd[1], res, ft_strlen(res));
+		write(heredoc_fd[1], mini->heredoc_buff, ft_strlen(mini->heredoc_buff));
 		close(heredoc_fd[1]);
 		wait(NULL);
 		kill(pid, SIGTERM);
 	}
-	free_arr(env_arr);
-	mini->heredoc = 0;
+	free_heredoc(env_arr, mini);
 	return (69);
 }
