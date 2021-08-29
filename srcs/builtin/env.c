@@ -4,7 +4,7 @@
 ** Prints out every environment variable.
 **
 ** @param	t_mini *mini	The mini struct;
-** @return	int				1 for success and 0 for failure.
+** @return	int				The status code.
 */
 int	ft_env(t_mini *mini)
 {
@@ -16,5 +16,5 @@ int	ft_env(t_mini *mini)
 		ft_putendl_fd(cur->content, 1);
 		cur = cur->next;
 	}
-	return (1);
+	return (0);
 }

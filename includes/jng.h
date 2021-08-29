@@ -149,14 +149,14 @@ void	expand(t_mini *mini);
 
 //Executor functions
 int		execute(t_mini *mini);
-void	exe_builtin(t_mini *mini, char *cmd, char **args);
-void	exe_executable(t_mini *mini, char *cmd, char **args);
+int		exe_builtin(t_mini *mini, char *cmd, char **args);
+int		exe_executable(t_mini *mini, char *cmd, char **args);
 int		get_argc(char **args);
 void	handle_delims(t_mini *mini, t_token *curr, t_token *cmd);
 
 //History functions
 void	push_history(t_mini *mini, char *buff);
-void	print_history(t_mini *mini);
+int		print_history(t_mini *mini);
 
 //Signal functions
 void	init_signals(t_mini *mini);

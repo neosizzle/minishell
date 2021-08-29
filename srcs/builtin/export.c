@@ -41,14 +41,14 @@ int	print_env_var_error(char *arg)
 	ft_putstr_fd("export: not a valid identifier: ", 2);
 	ft_putstr_fd(arg, 2);
 	ft_putchar_fd('\n', 2);
-	return (0);
+	return (1);
 }
 
 /*
 ** Prints out every environment variable sorted by alphabetical order.
 **
 ** @param	t_mini *mini		The mini struct;
-** @return	int					1 for success and 0 for failure.
+** @return	int		The status code.
 */
 int	print_sorted_env_vars(t_mini *mini)
 {
@@ -62,7 +62,7 @@ int	print_sorted_env_vars(t_mini *mini)
 		head = head->next;
 	}
 	ft_lstclear(&head);
-	return (1);
+	return (0);
 }
 
 /*
@@ -72,7 +72,7 @@ int	print_sorted_env_vars(t_mini *mini)
 ** @param	int		argc		The argument count;
 ** @param	char	**argv		The argument vector;
 ** @param	t_mini *mini		The mini struct;
-** @return	int					1 for success and 0 for failure.
+** @return	int		The status code.
 */
 int	ft_export(int argc, char **argv, t_mini *mini)
 {
@@ -87,5 +87,5 @@ int	ft_export(int argc, char **argv, t_mini *mini)
 	}
 	else
 		print_sorted_env_vars(mini);
-	return (1);
+	return (0);
 }

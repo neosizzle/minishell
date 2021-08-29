@@ -62,9 +62,9 @@ static void	execute_cmd(t_token *cmd, char **args, t_mini *mini)
 {
 	//printf("cmd: %s\n", cmd->str);
 	if (cmd->type == CMD_BUILTIN)
-		exe_builtin(mini, cmd->str, args);
+		mini->exit_status_code = exe_builtin(mini, cmd->str, args);
 	if (cmd->type == CMD_EXE)
-		exe_executable(mini, cmd->str, args);
+		mini->exit_status_code = exe_executable(mini, cmd->str, args);
 }
 
 /*

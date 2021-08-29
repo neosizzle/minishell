@@ -2,7 +2,7 @@
 
 /*
 ** Given a string in the form of x=y, return y
-** 
+**
 ** @param char* str	The full string
 ** @return char* 		The extracted value
 */
@@ -42,10 +42,10 @@ static char	*expand_env(t_mini *mini, char *str, int start, int end)
 
 /*
 ** Searches for all env vars in a token and expands it
-** 
+**
 ** @param t_mini *mini		The mini struct
 ** @param t_token *curr	The current token
-** 
+**
 ** @return void
 ** TODO, backslash cancelling and mem leaks
 */
@@ -62,6 +62,12 @@ static void	expand_token(t_mini *mini, t_token *curr)
 	{
 		if (curr->str[i] == '$')
 		{
+			if (curr->str[i + 1] == '?')
+			{
+				ft_putnbr_fd(mini->exit_status_code, 1);
+				ft_putchar_fd('\n', 1);
+				return ;
+			}
 			if (i > 0 && curr->str[i - 1] == '\\')
 			{
 				temp = ft_substr(curr->str, 1, ft_strlen(curr->str) - 1);
@@ -87,7 +93,7 @@ static void	expand_token(t_mini *mini, t_token *curr)
 
 /*
 ** Expands environmental variables into its full form
-** 
+**
 ** @param t_mini *mini	The mini struct
 ** @return void
 */

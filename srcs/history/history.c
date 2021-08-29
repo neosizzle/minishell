@@ -2,8 +2,8 @@
 
 /*
 ** Adds history to history linkedlist in mini struct.
-** 
-** @param t_mini	*mini		The mini struct 
+**
+** @param t_mini	*mini		The mini struct
 ** @param char		*buff		The cmd string
 ** @return void
 */
@@ -28,11 +28,11 @@ void	push_history(t_mini *mini, char *buff)
 
 /*
 ** Prints history given the mini struct
-** 
-** @param t_mini	*mini		The mini struct 
+**
+** @param t_mini	*mini		The mini struct
 ** @return void
 */
-void	print_history(t_mini *mini)
+int	print_history(t_mini *mini)
 {
 	int			i;
 	t_history *curr;
@@ -44,4 +44,5 @@ void	print_history(t_mini *mini)
 		printf("%d. %s\n", i++, curr->str);
 		curr = curr->next;
 	}
+	return (0);
 }

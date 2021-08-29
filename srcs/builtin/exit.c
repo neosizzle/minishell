@@ -6,16 +6,16 @@
 ** @param	int		argc		The argument count;
 ** @param	char	**argv		The argument vector;
 ** @param	t_mini	*mini		The mini struct;
-** @return	void				No return value.
+** @return	int					The status code.
 */
-void	ft_exit(int argc, char **argv, t_mini *mini)
+int	ft_exit(int argc, char **argv, t_mini *mini)
 {
 	int	i;
 
 	if (argc > 2)
 	{
 		ft_putendl_fd("minishell: exit: too many arguments", 2);
-		return ;
+		return (1);
 	}
 	i = 1;
 	mini->exit = 1;
@@ -34,4 +34,5 @@ void	ft_exit(int argc, char **argv, t_mini *mini)
 		mini->exit_status_code = ft_atoi(argv[1]);
 	else
 		mini->exit_status_code = 0;
+	return (mini->exit_status_code);
 }

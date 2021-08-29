@@ -3,7 +3,7 @@
 /*
 ** Prints the current working directory.
 **
-** @return	int		1 for success and 0 for failure
+** @return	int		The status code.
 */
 int ft_pwd(void)
 {

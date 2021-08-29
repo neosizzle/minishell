@@ -4,7 +4,7 @@
 ** Sets the OLDPWD environment variable.
 **
 ** @param	t_mini *mini		The mini struct;
-** @return	int					1 for success and 0 for failure.
+** @return	int					The status code.
 */
 int	set_old_pwd(t_mini *mini)
 {
@@ -28,7 +28,7 @@ int	set_old_pwd(t_mini *mini)
 ** Gets the path of a specific environment variable.
 **
 ** @param	t_env	*env		The pointer to the head of the environment variable linked list;
-** @return	int					The path of the specified environment variable.
+** @return	char*					The path of the specified environment variable.
 */
 char	*get_env_path(t_env *env, char *var)
 {
@@ -65,7 +65,7 @@ char	*get_env_path(t_env *env, char *var)
 ** Changes to the home directory.
 **
 ** @param	t_mini *mini		The mini struct;
-** @return	int					1 for success and 0 for failure.
+** @return	int					The status code.
 */
 int	go_to_hwd(t_mini *mini)
 {
@@ -87,7 +87,7 @@ int	go_to_hwd(t_mini *mini)
 ** Changes to the previous directory.
 **
 ** @param	t_mini *mini		The mini struct;
-** @return	int					1 for success and 0 for failure.
+** @return	int					The status code.
 */
 int	go_to_pwd(t_mini *mini)
 {
@@ -97,12 +97,12 @@ int	go_to_pwd(t_mini *mini)
 	if (!path)
 	{
 		ft_putendl_fd("minishell: cd: OLDPWD not set", 2);
-		return (0);
+		return (1);
 	}
 	set_old_pwd(mini);
 	chdir(path);
 	free(path);
-	return (1);
+	return (0);
 }
 
 int	print_cd_error(char *arg)
@@ -111,7 +111,7 @@ int	print_cd_error(char *arg)
 	ft_putstr_fd(strerror(errno), 2);
 	ft_putstr_fd(": ", 2);
 	ft_putendl_fd(arg, 2);
-	return (0);
+	return (1);
 }
 
 /*
@@ -120,7 +120,7 @@ int	print_cd_error(char *arg)
 ** @param	int		argc		The argument count;
 ** @param	char	**argv		The argument vector;
 ** @param	t_mini *mini		The mini struct;
-** @return	int					1 for success and 0 for failure.
+** @return	int					The status code.
 */
 int	ft_cd(int argc, char **argv, t_mini *mini)
 {
@@ -129,7 +129,7 @@ int	ft_cd(int argc, char **argv, t_mini *mini)
 	if (argc > 2)
 	{
 		ft_putendl_fd("minishell: cd: too many arguments", 2);
-		return (0);
+		return (1);
 	}
 	if (!argv[1] || !ft_strncmp(argv[1], "~", ft_strlen(argv[1])))
 		return (go_to_hwd(mini));
@@ -142,5 +142,5 @@ int	ft_cd(int argc, char **argv, t_mini *mini)
 		if (status != 0)
 			return (print_cd_error(argv[1]));
 	}
-	return (1);
+	return (0);
 }
