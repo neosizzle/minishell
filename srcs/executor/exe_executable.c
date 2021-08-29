@@ -2,13 +2,13 @@
 
 /*
 ** Execute an executable file
-** 
+**
 ** @param t_mini	*mini		The mini struct
 ** @param char		*cmd		The cmd to be executed
 ** @param char		**args		The cmd arguments
 ** @return void
 */
-void	exe_executable(t_mini *mini, char *cmd, char **args)
+int	exe_executable(t_mini *mini, char *cmd, char **args)
 {
 	int argc;
 
@@ -19,4 +19,5 @@ void	exe_executable(t_mini *mini, char *cmd, char **args)
 	// 	ft_exe_env(argc, args, mini);
 	// ft_exe_path(argc, args, mini);
 	ft_exe_env(argc, args, mini);
+	return (0);
 }

@@ -41,7 +41,7 @@ int	print_env_var_error(char *arg)
 	ft_putstr_fd("export: not a valid identifier: ", 2);
 	ft_putstr_fd(arg, 2);
 	ft_putchar_fd('\n', 2);
-	return (0);
+	return (1);
 }
 
 /*
@@ -62,7 +62,7 @@ int	print_sorted_env_vars(t_mini *mini)
 		head = head->next;
 	}
 	ft_lstclear(&head);
-	return (1);
+	return (0);
 }
 
 /*
@@ -87,5 +87,5 @@ int	ft_export(int argc, char **argv, t_mini *mini)
 	}
 	else
 		print_sorted_env_vars(mini);
-	return (1);
+	return (0);
 }

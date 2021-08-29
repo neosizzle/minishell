@@ -13,5 +13,5 @@ int	ft_unset(int argc, char **argv, t_mini *mini)
 	if (!argv[1])
 		return (1);
 	remove_env_var(mini, argv[1]);
-	return (1);
+	return (0);
 }

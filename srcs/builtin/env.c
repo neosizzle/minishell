@@ -16,5 +16,5 @@ int	ft_env(t_mini *mini)
 		ft_putendl_fd(cur->content, 1);
 		cur = cur->next;
 	}
-	return (1);
+	return (0);
 }

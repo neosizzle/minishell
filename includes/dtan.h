@@ -17,7 +17,7 @@ int		ft_echo(int argc, char **argv);
 
 int		ft_env(t_mini *mini);
 
-void	ft_exit(int argc, char **argv, t_mini *mini);
+int		ft_exit(int argc, char **argv, t_mini *mini);
 
 int		ft_export(int argc, char **argv, t_mini *mini);
 

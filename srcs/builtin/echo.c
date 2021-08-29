@@ -13,7 +13,7 @@ int	ft_echo(int argc, char **argv)
 	int	flag;
 
 	if (argc < 2)
-		return (0);
+		return (1);
 	i = 1;
 	flag = 0;
 	if (argv[i] && ft_strncmp(argv[i], "-n", 2) == 0)
@@ -30,5 +30,5 @@ int	ft_echo(int argc, char **argv)
 	}
 	if (flag == 0)
 		ft_putchar_fd('\n', 1);
-	return (1);
+	return (0);
 }
