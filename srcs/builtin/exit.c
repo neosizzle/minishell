@@ -6,7 +6,7 @@
 ** @param	int		argc		The argument count;
 ** @param	char	**argv		The argument vector;
 ** @param	t_mini	*mini		The mini struct;
-** @return	void				No return value.
+** @return	int					The status code.
 */
 int	ft_exit(int argc, char **argv, t_mini *mini)
 {

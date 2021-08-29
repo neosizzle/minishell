@@ -11,13 +11,14 @@
 int	exe_executable(t_mini *mini, char *cmd, char **args)
 {
 	int argc;
+	int	status_code;
 
 	argc = 0;
 	while (args[argc])
 		argc++;
-	// if (ft_exe_path(argc, args, mini) == -1)
-	// 	ft_exe_env(argc, args, mini);
-	// ft_exe_path(argc, args, mini);
-	ft_exe_env(argc, args, mini);
-	return (0);
+	if (ft_exe_path(argc, args, mini) == -1)
+		status_code = ft_exe_env(argc, args, mini);
+	else
+		status_code = ft_exe_env(argc, args, mini);
+	return (status_code);
 }

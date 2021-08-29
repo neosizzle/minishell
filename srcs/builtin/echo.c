@@ -5,7 +5,7 @@
 **
 ** @param	int		argc		The argument count;
 ** @param	char	**argv		The argument vector;
-** @return	int					1 for success and 0 for failure.
+** @return	int					The status code.
 */
 int	ft_echo(int argc, char **argv)
 {

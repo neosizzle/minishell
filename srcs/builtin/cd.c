@@ -4,7 +4,7 @@
 ** Sets the OLDPWD environment variable.
 **
 ** @param	t_mini *mini		The mini struct;
-** @return	int					1 for success and 0 for failure.
+** @return	int					The status code.
 */
 int	set_old_pwd(t_mini *mini)
 {
@@ -28,7 +28,7 @@ int	set_old_pwd(t_mini *mini)
 ** Gets the path of a specific environment variable.
 **
 ** @param	t_env	*env		The pointer to the head of the environment variable linked list;
-** @return	int					The path of the specified environment variable.
+** @return	char*					The path of the specified environment variable.
 */
 char	*get_env_path(t_env *env, char *var)
 {
@@ -65,7 +65,7 @@ char	*get_env_path(t_env *env, char *var)
 ** Changes to the home directory.
 **
 ** @param	t_mini *mini		The mini struct;
-** @return	int					1 for success and 0 for failure.
+** @return	int					The status code.
 */
 int	go_to_hwd(t_mini *mini)
 {
@@ -87,7 +87,7 @@ int	go_to_hwd(t_mini *mini)
 ** Changes to the previous directory.
 **
 ** @param	t_mini *mini		The mini struct;
-** @return	int					1 for success and 0 for failure.
+** @return	int					The status code.
 */
 int	go_to_pwd(t_mini *mini)
 {
@@ -120,7 +120,7 @@ int	print_cd_error(char *arg)
 ** @param	int		argc		The argument count;
 ** @param	char	**argv		The argument vector;
 ** @param	t_mini *mini		The mini struct;
-** @return	int					1 for success and 0 for failure.
+** @return	int					The status code.
 */
 int	ft_cd(int argc, char **argv, t_mini *mini)
 {
