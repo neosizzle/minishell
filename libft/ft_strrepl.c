@@ -26,16 +26,5 @@ char	*ft_strrepl(char *str, char *repl, int start, int end)
 	left = ft_strjoin(temp, right);
 	free(right);
 	free(temp);
-	return(left);
+	return (left);
 }
-
-// #include <stdio.h>
-// int	main(int argc, char **argv)
-// {
-// 	char *str;
-
-// 	str = ft_strrepl("aaaa $PATH aaa", "A", 0, 1);
-// 	printf("%s\n", str);
-// 	free(str);
-// 	return 0;
-// }

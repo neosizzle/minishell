@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   free_mini.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jng <jng@student.42kl.edu>                 +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/08/30 09:37:54 by jng               #+#    #+#             */
+/*   Updated: 2021/08/30 09:37:54 by jng              ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "jng.h"
 
 /*
@@ -21,7 +33,6 @@ void	free_envs(t_mini *mini)
 	}
 }
 
-
 /*
 ** Frees token linked list
 **
@@ -30,7 +41,7 @@ void	free_envs(t_mini *mini)
 */
 void	free_tokens(t_token *head)
 {
-	t_token *temp;
+	t_token	*temp;
 
 	while (head)
 	{
@@ -50,7 +61,7 @@ void	free_tokens(t_token *head)
 */
 void	free_history(t_history *head)
 {
-	t_history *temp;
+	t_history	*temp;
 
 	while (head)
 	{

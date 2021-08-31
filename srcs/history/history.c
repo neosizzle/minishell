@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   history.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jng <jng@student.42kl.edu>                 +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/08/30 09:39:04 by jng               #+#    #+#             */
+/*   Updated: 2021/08/30 09:39:04 by jng              ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 /*
@@ -35,7 +47,7 @@ void	push_history(t_mini *mini, char *buff)
 int	print_history(t_mini *mini)
 {
 	int			i;
-	t_history *curr;
+	t_history	*curr;
 
 	curr = mini->history;
 	i = 0;

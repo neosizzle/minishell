@@ -1,17 +1,29 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parse.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jng <jng@student.42kl.edu>                 +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/08/30 09:45:16 by jng               #+#    #+#             */
+/*   Updated: 2021/08/30 09:45:16 by jng              ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 //helper func to print tokens for debugging, remove on prod
-static void	print_tokens(t_token *tokens)
-{
-	t_token *curr;
+// static void	print_tokens(t_token *tokens)
+// {
+// 	t_token	*curr;
 
-	curr = tokens;
-	while (curr)
-	{
-		printf("token : |%s| type : %d\n", curr->str, curr->type);
-		curr = curr->next;
-	}
-}
+// 	curr = tokens;
+// 	while (curr)
+// 	{
+// 		printf("token : |%s| type : %d\n", curr->str, curr->type);
+// 		curr = curr->next;
+// 	}
+// }
 
 /*
 ** Initializes head and creates new token list
@@ -29,7 +41,7 @@ static t_token	*new_token(t_mini *mini, char *data)
 	res->type = get_type(mini, data);
 	res->prev = 0;
 	res->next = 0;
-	return(res);
+	return (res);
 }
 
 /*
@@ -41,7 +53,7 @@ static t_token	*new_token(t_mini *mini, char *data)
 */
 static void	token_addend(char *data, t_mini *mini)
 {
-	t_token *prev;
+	t_token	*prev;
 	t_token	*temp;
 
 	prev = mini->tokens;
@@ -72,13 +84,13 @@ static void	token_addend(char *data, t_mini *mini)
 */
 void	parse(t_mini *mini, char *buff)
 {
-	char **split;
-	int	i;
-	t_token *head;
+	char	**split;
+	int		i;
+	t_token	*head;
 
 	if (bad_quotes(buff) || bad_bs(buff))
 		return ;
-	split = ft_split_custom(buff , ' ');
+	split = ft_split_custom(buff, ' ');
 	if (!*split)
 	{
 		free_arr(split);
@@ -91,7 +103,6 @@ void	parse(t_mini *mini, char *buff)
 		token_addend(split[i], mini);
 	trim(mini);
 	expand(mini);
-	//print_tokens(mini->tokens);
 	if (bad_delims(mini, split))
 		return ;
 	execute(mini);

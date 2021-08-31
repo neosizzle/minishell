@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   delims.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jng <jng@student.42kl.edu>                 +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/08/30 09:38:16 by jng               #+#    #+#             */
+/*   Updated: 2021/08/30 09:38:16 by jng              ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 /*
@@ -10,6 +22,8 @@
 */
 void	handle_delims(t_mini *mini, t_token *curr, t_token *cmd)
 {
+	if (!cmd)
+		return ;
 	if (curr && curr->type == PIPE)
 	{
 		create_pipe(mini);
@@ -17,9 +31,8 @@ void	handle_delims(t_mini *mini, t_token *curr, t_token *cmd)
 	}
 	else if (curr && curr->type == HEREDOC)
 	{
-		char *res = create_heredoc(curr->next->str);
 		mini->heredoc = 1;
-		mini->heredoc_buff = res;
+		mini->heredoc_buff = create_heredoc(curr->next->str);
 		curr->next->type = ARG;
 		cmd = curr->next->next;
 	}
