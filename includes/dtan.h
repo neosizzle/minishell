@@ -30,7 +30,7 @@ int		ft_unset(int argc, char **argv, t_mini *mini);
 */
 int		launch_exe(char *path, char **argv, t_mini *mini);
 
-int		print_exe_path_err(char *path);
+int	    get_err_status_code(char *path);
 
 int		ft_exe_path(int argc, char **argv, t_mini *mini);
 

@@ -1,8 +1,9 @@
 #include "minishell.h"
 
-int	print_exe_path_err(char *path)
+int	get_err_status_code(char *path)
 {
 	int	fd;
+	int	status_code;
 	DIR *dir;
 
 	fd = open(path, O_RDONLY);
@@ -15,9 +16,13 @@ int	print_exe_path_err(char *path)
 		ft_putendl_fd(": is a directory", 2);
 	else if (fd == -1 && dir == NULL)
 		ft_putendl_fd(": No such file or directory", 2);
+	if (ft_strchr(path, '/') == NULL || (fd == -1 && dir == NULL))
+		status_code = 127;
+	else
+		status_code = 126;
 	close(fd);
 	closedir(dir);
-	return (0);
+	return (status_code);
 }
 
 /*
@@ -46,7 +51,8 @@ int	launch_exe(char *path, char **argv, t_mini *mini)
 		env_arr = get_env_arr(mini);
 		execve(path, argv, env_arr);
 		free_arr(env_arr);
-		exit(0);
+		status_code = get_err_status_code(path);
+		exit(status_code);
 	}
 	else
 	{
