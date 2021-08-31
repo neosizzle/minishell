@@ -45,7 +45,7 @@ int	ft_exe_env(int argc, char **argv, t_mini *mini)
 	paths = ft_split(var, ':');
 	path = traverse_dir(paths[0], argv[0]);
 	i = 1;
-	while (path == NULL)
+	while (argv[0] && paths[i] && path == NULL)
 	{
 		path = traverse_dir(paths[i], argv[0]);
 		i++;
@@ -57,6 +57,6 @@ int	ft_exe_env(int argc, char **argv, t_mini *mini)
 	else
 		status_code = launch_exe(path, argv, mini);
 	free_arr(paths);
-	//free(path);
+	free(path);
 	return (status_code);
 }
