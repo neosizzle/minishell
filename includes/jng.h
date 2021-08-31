@@ -67,7 +67,6 @@ typedef struct s_history
 	struct s_history	*next;
 }	t_history;
 
-
 /*
 ** Struct that contains minishell data
 **
@@ -111,7 +110,7 @@ typedef struct s_mini
 ** sig(x) - various signal switches
 ** in_fork - 1 if there is a child process and 0 otherwise
 ** pipe - 1 if processing a pipe, 0 if not
-** pipe - 1 if processing a quote, 0 if not
+** quote - 1 if processing a quote, 0 if not
 */
 typedef struct s_global
 {
@@ -124,7 +123,7 @@ typedef struct s_global
 }	t_global;
 
 //Global vars
-extern t_global g_global;
+extern t_global	g_global;
 
 //Error functions
 void	err(char *message);
@@ -135,7 +134,7 @@ void	free_mini(t_mini *mini);
 void	free_tokens(t_token *head);
 void	free_term(char *cwd, char *buff);
 void	free_history(t_history *head);
-void	free_heredoc(char **env_arr, t_mini* mini);
+void	free_heredoc(char **env_arr, t_mini *mini);
 
 //Parsing functions
 void	parse(t_mini *mini, char *buff);
@@ -146,11 +145,13 @@ int		bad_bs(char *buff);
 int		bad_delims(t_mini *mini, char**split);
 void	trim(t_mini *mini);
 void	expand(t_mini *mini);
+int		replace_tokenstr_bs(t_token *curr, int i);
+void	replace_tokenstr(t_mini *mini, t_token *curr, int s_idx, int e_idx);
 
 //Executor functions
 int		execute(t_mini *mini);
 int		exe_builtin(t_mini *mini, char *cmd, char **args);
-int		exe_executable(t_mini *mini, char *cmd, char **args);
+int		exe_executable(t_mini *mini, char **args);
 int		get_argc(char **args);
 void	handle_delims(t_mini *mini, t_token *curr, t_token *cmd);
 

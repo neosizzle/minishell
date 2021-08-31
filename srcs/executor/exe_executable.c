@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   exe_executable.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jng <jng@student.42kl.edu>                 +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/08/30 09:38:03 by jng               #+#    #+#             */
+/*   Updated: 2021/08/30 09:38:03 by jng              ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 /*
@@ -8,9 +20,9 @@
 ** @param char		**args		The cmd arguments
 ** @return void
 */
-int	exe_executable(t_mini *mini, char *cmd, char **args)
+int	exe_executable(t_mini *mini, char **args)
 {
-	int argc;
+	int	argc;
 	int	status_code;
 
 	argc = 0;

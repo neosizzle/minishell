@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   execute.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jng <jng@student.42kl.edu>                 +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/08/30 09:37:59 by jng               #+#    #+#             */
+/*   Updated: 2021/08/30 09:37:59 by jng              ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 //REMOVE IN PROD
@@ -60,11 +72,10 @@ static char	**get_args(t_token	*tokens)
 */
 static void	execute_cmd(t_token *cmd, char **args, t_mini *mini)
 {
-	//printf("cmd: %s\n", cmd->str);
 	if (cmd->type == CMD_BUILTIN)
 		mini->exit_status_code = exe_builtin(mini, cmd->str, args);
 	if (cmd->type == CMD_EXE)
-		mini->exit_status_code = exe_executable(mini, cmd->str, args);
+		mini->exit_status_code = exe_executable(mini, args);
 }
 
 /*
@@ -97,7 +108,7 @@ int	get_argc(char **args)
 int	execute(t_mini *mini)
 {
 	t_token	*curr;
-	t_token *cmd;
+	t_token	*cmd;
 	char	**args;
 
 	curr = mini->tokens;

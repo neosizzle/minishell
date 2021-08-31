@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_split_custom.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jng <jng@student.42kl.edu>                 +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/08/30 09:43:42 by jng               #+#    #+#             */
+/*   Updated: 2021/08/30 09:43:42 by jng              ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 //custom ft_split func, does the same thing as normal ft_split 
 //except that this version ignores quotes
@@ -18,7 +30,7 @@ static int	handle_quotes_tw(char **s)
 	cancel = *(*s + 1);
 	if (quote && quote == '\\' && (cancel == '\"' || cancel == '\''))
 	{
-		(*s)+=2;
+		(*s) += 2;
 		return (0);
 	}
 	if (!(quote == '\"' || quote == '\''))
@@ -61,7 +73,7 @@ static int	handle_quotes(char **res, char *start, int *i, char **s)
 	cancel = *(*s + 1);
 	if (quote && quote == '\\' && (cancel == '\"' || cancel == '\''))
 	{
-		(*s)+=2;
+		(*s) += 2;
 		return (0);
 	}
 	if (!(quote == '\"' || quote == '\''))
