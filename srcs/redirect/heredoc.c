@@ -68,7 +68,7 @@ int	launch_heredoc(t_mini *mini, char *path, char **argv)
 	env_arr = get_env_arr(mini);
 	pipe(heredoc_fd);
 	pid = fork();
-	if (pid == 0) // child
+	if (pid == 0)
 	{
 		close(heredoc_fd[1]);
 		dup2(heredoc_fd[0], STDIN_FILENO);
@@ -76,7 +76,7 @@ int	launch_heredoc(t_mini *mini, char *path, char **argv)
 		close(heredoc_fd[0]);
 		exit(0);
 	}
-	else // parent
+	else
 	{
 		close(heredoc_fd[0]);
 		write(heredoc_fd[1], mini->heredoc_buff, ft_strlen(mini->heredoc_buff));

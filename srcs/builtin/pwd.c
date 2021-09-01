@@ -5,7 +5,7 @@
 **
 ** @return	int		The status code.
 */
-int ft_pwd(void)
+int	ft_pwd(void)
 {
 	char	*wd_path;
 

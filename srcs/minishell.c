@@ -58,20 +58,58 @@ static t_mini	*init_mini(void)
 static void	init_vars(t_mini *mini)
 {
 	add_env_var(mini, "PATH=/bin:/usr/bin");
-	add_env_var(mini, "HOME=/");
+	add_env_var(mini, "HOME=/home");
+}
+
+/*
+This function will run a sequence of instructions after a line is get 
+from readline().
+1. Push line to history
+2. Parse line
+3. Free terminal elements
+4. Reset file descriptors
+
+@param t_mini *mini		The pointer to the mini struct
+@param char *buff		The line buffer
+@param char *cwd		The current working directory
+@return void
+*/
+static void	process_line(t_mini *mini, char *buff, char *cwd)
+{
+	push_history(mini, buff);
+	parse(mini, buff);
+	free_term(cwd, buff);
+	reset_std(mini);
+}
+
+/*
+** Checks for argc and argv and prints usage if needed
+** 
+** @param int argc		The argument count
+** @param char **argv	The argument vector
+** @return void
+*/
+void	check_usage(int argc, char **argv)
+{
+	if (argc > 1 || argv[1])
+	{
+		ft_putendl_fd("Usage : ./minishell", 2);
+		exit(1);
+	}
 }
 
 /*
 ** Entry point.
 **
-** Initializes variables and structs.
-** Set up signal handlers.
-** Start parsing next line as long as shell is active.
-** Add every command entered to history.
-** Free the terminal components after each parse.
-** If we are handling pipes, reopen STDIN fd using dup2()
-** Free variables and structs.
-** If exit signal is sent, free mini struct before ending program.
+** 1. Checks for usage.
+** 2. Initializes variables and structs.
+** 3. Set up signal handlers.
+** 4. Start parsing next line as long as shell is active.
+** 5. Add every command entered to history.
+** 6. Parse and free the terminal components after each parse.
+** 7. If we are handling pipes, reopen STDIN fd using dup2()(Dont need)
+** 8. Free variables and structs.
+** 9. If exit signal is sent, free mini struct before returning status code.
 **
 ** @return int	status code
 */
@@ -82,8 +120,9 @@ int	main(int argc, char *argv[])
 	t_mini	*mini;
 	char	*buff;
 	char	*cwd;
+	int		stat_code;
 
-	(void)argv;
+	check_usage(argc, argv);
 	mini = init_mini();
 	init_signals(mini);
 	init_vars(mini);
@@ -98,10 +137,9 @@ int	main(int argc, char *argv[])
 		buff = readline(cwd);
 		if (!buff)
 			handle_sigstop(69);
-		push_history(mini, buff);
-		parse(mini, buff);
-		free_term(cwd, buff);
-		reset_std(mini);
+		process_line(mini, buff, cwd);
 	}
+	stat_code = mini->exit_status_code;
 	free_mini(mini);
+	return (WEXITSTATUS(stat_code));
 }

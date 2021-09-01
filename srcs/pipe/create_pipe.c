@@ -8,7 +8,6 @@
 */
 int	create_pipe(t_mini *mini)
 {
-	pid_t	pid;
 	int		pipefd[2];
 	int		status;
 

@@ -47,11 +47,14 @@ int	set_env_var(t_mini *mini, char *var)
 ** @param	t_mini *mini		The mini struct;
 ** @param	char	*var		The environment variable;
 ** @return	int				1 for success and 0 for failure.
+** TODO : Overwrite old env if similar name found
 */
 int	add_env_var(t_mini *mini, char *var)
 {
 	t_env	*new;
 
+	if (is_in_env(mini, var))
+		return (0);
 	new = (t_env *) malloc(sizeof(t_env));
 	if (!new)
 		return (0);
@@ -60,14 +63,14 @@ int	add_env_var(t_mini *mini, char *var)
 	if (!mini->envs)
 		mini->envs = new;
 	else
-		ft_lstadd_back(&(mini->envs), new);
+		add_env_back(mini, new);
 	return (1);
 }
 
 /*
 ** Removes an environment variable to the linked list.
 **
-** @param	t_env	*env		The pointer to the head of the environment variable linked list;
+** @param	t_env	*env		The pointer to the head of the env var linked list;
 ** @param	char	*var		The environment variable;
 ** @return	int				1 for success and 0 for failure.
 */

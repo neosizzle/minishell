@@ -11,11 +11,13 @@ char	*traverse_dir(char *path, char *exe)
 	if (!dir)
 		return (NULL);
 	dir_contents = readdir(dir);
+	exe_path = ft_strdup("");
 	while (dir_contents)
 	{
-		if (!ft_strncmp(dir_contents->d_name, exe, ft_strlen(dir_contents->d_name))) // REPLACE
+		if (!ft_strcmp(dir_contents->d_name, exe))
 		{
 			temp = ft_strjoin(path, "/");
+			free(exe_path);
 			exe_path = ft_strjoin(temp, dir_contents->d_name);
 			free(temp);
 		}
@@ -41,6 +43,7 @@ int	ft_exe_env(int argc, char **argv, t_mini *mini)
 	int		i;
 	int		status_code;
 
+	(void)argc;
 	var = get_env_var(mini, "PATH");
 	paths = ft_split(var, ':');
 	path = traverse_dir(paths[0], argv[0]);
