@@ -20,7 +20,7 @@
 ** @param char *msg	The message to be printed
 ** @return void
 */
-static void print_path_err(char *path, char *msg)
+static void	print_path_err(char *path, char *msg)
 {
 	ft_putstr_fd("minishell: ", 2);
 	ft_putstr_fd(path, 2);
@@ -31,7 +31,7 @@ static int	check_path(char *path)
 {
 	int	fd;
 	int	status_code;
-	DIR *dir;
+	DIR	*dir;
 
 	fd = open(path, O_RDONLY);
 	dir = opendir(path);

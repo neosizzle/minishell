@@ -1,6 +1,22 @@
 #include "minishell.h"
 
 /*
+** Switches the contentd between two env nodes
+** 
+** @param t_env *cur	The current node
+** @param t_env *next	The node to switch content with
+** @return void
+*/
+static void	switch_contents(t_env *cur, t_env *next)
+{
+	char	*cur_content;
+
+	cur_content = cur->content;
+	cur->content = next->content;
+	next->content = cur_content;
+}
+
+/*
 ** Gets a newly created and sorted environment variables linked list.
 **
 ** @param	t_mini *mini		The mini struct;
@@ -10,7 +26,6 @@ t_env	*get_sorted_env_vars(t_mini *mini)
 {
 	t_env	*head;
 	t_env	*cur;
-	char	*cur_content;
 	int		unsorted;
 
 	if (!mini->envs)
@@ -23,12 +38,10 @@ t_env	*get_sorted_env_vars(t_mini *mini)
 		cur = head;
 		while (cur->next)
 		{
-			if (ft_strncmp(cur->content, cur->next->content, ft_strlen(cur->content)) > 0) // REPLACE
+			if (ft_strcmp(cur->content, cur->next->content) > 0)
 			{
 				unsorted = 1;
-				cur_content = cur->content;
-				cur->content = cur->next->content;
-				cur->next->content = cur_content;
+				switch_contents(cur, cur->next);
 			}
 			cur = cur->next;
 		}
@@ -53,13 +66,15 @@ int	print_env_var_error(char *arg)
 int	print_sorted_env_vars(t_mini *mini)
 {
 	t_env	*head;
+	t_env	*curr;
 
 	head = get_sorted_env_vars(mini);
-	while (head)
+	curr = head;
+	while (curr)
 	{
 		ft_putstr_fd("declare -x ", 1);
-		ft_putendl_fd(head->content, 1);
-		head = head->next;
+		ft_putendl_fd(curr->content, 1);
+		curr = curr->next;
 	}
 	ft_lstclear(&head);
 	return (0);
@@ -76,9 +91,10 @@ int	print_sorted_env_vars(t_mini *mini)
 */
 int	ft_export(int argc, char **argv, t_mini *mini)
 {
-	int i;
+	int	i;
 
 	i = 1;
+	(void)argc;
 	if (argv[i])
 	{
 		if (!is_valid_env_var(argv[i]))

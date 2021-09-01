@@ -9,14 +9,14 @@
 */
 int	is_in_env(t_mini *mini, char *var)
 {
-	t_env *cur;
+	t_env	*cur;
 
 	if (!mini->envs)
 		return (0);
 	cur = mini->envs;
 	while (cur)
 	{
-		if (!ft_strncmp(cur->content, var, ft_strlen(var))) // REPLACE
+		if (!ft_strcmp(cur->content, var))
 			return (1);
 		cur = cur->next;
 	}

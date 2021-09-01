@@ -1,6 +1,25 @@
 #include "minishell.h"
 
 /*
+** Removes oldpwd from env vars
+** 
+** @param t_mini *mini	The mini struct
+** @return void
+*/
+static void	remove_oldpwd(t_mini *mini)
+{
+	char	*old_pwd_var;
+	char	*old_pwd;
+
+	old_pwd_var = get_env_var(mini, "OLDPWD");
+	if (!old_pwd_var)
+		return ;
+	old_pwd = ft_strjoin("OLDPWD=", old_pwd_var);
+	remove_env_var(mini, old_pwd);
+	free(old_pwd);
+}
+
+/*
 ** Sets the OLDPWD environment variable.
 **
 ** @param	t_mini *mini		The mini struct;
@@ -19,46 +38,9 @@ int	set_old_pwd(t_mini *mini)
 		add_env_var(mini, old_pwd_path);
 	else
 		set_env_var(mini, old_pwd_path);
-	free(wd_path); // might not need to free
+	free(wd_path);
 	free(old_pwd_path);
 	return (1);
-}
-
-/*
-** Gets the path of a specific environment variable.
-**
-** @param	t_env	*env		The pointer to the head of the environment variable linked list;
-** @return	char*					The path of the specified environment variable.
-*/
-char	*get_env_path(t_env *env, char *var)
-{
-	char	*path;
-	int		len;
-	int		size;
-	int		i;
-
-	len = get_env_var_name_size(var);
-	while (env)
-	{
-		size = ft_strlen(env->content) - len;
-		if (!ft_strncmp(env->content, var, len))
-		{
-			path = (char *) malloc(sizeof(char) * (size + 1));
-			if (!path)
-				return (NULL);
-			i = 0;
-			while (env->content[len])
-			{
-				path[i] = env->content[len];
-				i++;
-				len++;
-			}
-			path[i] = '\0';
-			return (path);
-		}
-		env = env->next;
-	}
-	return (NULL);
 }
 
 /*
@@ -75,12 +57,13 @@ int	go_to_hwd(t_mini *mini)
 	if (!path)
 	{
 		ft_putendl_fd("minishell: cd: HOME not set", 2);
-		return (0);
+		return (1);
 	}
+	remove_oldpwd(mini);
 	set_old_pwd(mini);
 	chdir(path);
 	free(path);
-	return (1);
+	return (0);
 }
 
 /*
@@ -99,19 +82,11 @@ int	go_to_pwd(t_mini *mini)
 		ft_putendl_fd("minishell: cd: OLDPWD not set", 2);
 		return (1);
 	}
+	remove_oldpwd(mini);
 	set_old_pwd(mini);
 	chdir(path);
 	free(path);
 	return (0);
-}
-
-int	print_cd_error(char *arg)
-{
-	ft_putstr_fd("cd: ", 2);
-	ft_putstr_fd(strerror(errno), 2);
-	ft_putstr_fd(": ", 2);
-	ft_putendl_fd(arg, 2);
-	return (1);
 }
 
 /*
@@ -124,19 +99,20 @@ int	print_cd_error(char *arg)
 */
 int	ft_cd(int argc, char **argv, t_mini *mini)
 {
-	int	status;
+	int		status;
 
 	if (argc > 2)
 	{
 		ft_putendl_fd("minishell: cd: too many arguments", 2);
 		return (1);
 	}
-	if (!argv[1] || !ft_strncmp(argv[1], "~", ft_strlen(argv[1])))
+	if (!argv[1] || !ft_strcmp(argv[1], "~"))
 		return (go_to_hwd(mini));
-	if (!ft_strncmp(argv[1], "-", ft_strlen(argv[1])))
+	if (!ft_strcmp(argv[1], "-"))
 		return (go_to_pwd(mini));
 	else
 	{
+		remove_oldpwd(mini);
 		set_old_pwd(mini);
 		status = chdir(argv[1]);
 		if (status != 0)

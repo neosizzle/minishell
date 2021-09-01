@@ -45,7 +45,6 @@ static int	expand_ret_val(t_mini *mini, t_token *curr, int *i)
 ** @param t_token *curr	The current token
 **
 ** @return void
-** TODO, backslash cancelling and mem leaks
 */
 static void	expand_token(t_mini *mini, t_token *curr)
 {

@@ -58,7 +58,7 @@ static t_mini	*init_mini(void)
 static void	init_vars(t_mini *mini)
 {
 	add_env_var(mini, "PATH=/bin:/usr/bin");
-	add_env_var(mini, "HOME=/");
+	add_env_var(mini, "HOME=/home");
 }
 
 /*

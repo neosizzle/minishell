@@ -12,7 +12,15 @@
 
 #include "minishell.h"
 
-static int call_builtin(t_mini *mini, char *cmd, char **args)
+/*
+** Depends on what cmd is passed, call specific builtin funcs
+** 
+** @param t_mini *mini		The mini struct
+** @param char *cmd			The command string
+** @param char **args		The arguments
+** @return int				The status code
+*/
+static int	call_builtin(t_mini *mini, char *cmd, char **args)
 {
 	int	argc;
 	int	status_code;
@@ -35,7 +43,48 @@ static int call_builtin(t_mini *mini, char *cmd, char **args)
 	else if (!ft_strcmp(cmd, "history"))
 		status_code = print_history(mini);
 	return (status_code);
+}
 
+/*
+Since vars and duplicated and not shared across processes, some
+postprocessing is needed
+
+@param t_mini *mini		The mini struct
+@param char *cmd		The command string
+@param char **args		The arguments
+@return void
+*/
+static void	parent_postprocess(t_mini *mini, char *cmd
+	, char **args, int stat_code)
+{
+	int	argc;
+
+	argc = get_argc(args);
+	if (!ft_strcmp(cmd, "cd") && !stat_code)
+		ft_cd(argc, args, mini);
+	if (!ft_strcmp(cmd, "exit"))
+		mini->exit = 1;
+	else if (!ft_strcmp(cmd, "export") && argc > 1)
+		ft_export(argc, args, mini);
+	else if (!ft_strcmp(cmd, "unset"))
+		ft_unset(argc, args, mini);
+	mini->exit_status_code = WEXITSTATUS(stat_code);
+}
+
+/*
+** Calls builtin func and exits with status code
+**
+** @param t_mini *mini	The mini struct.
+** @param char *cmd		The command to be executed.
+** @param char **args 	The argument string array.
+** @return void
+*/
+static void	call_and_exit(t_mini *mini, char *cmd, char **args)
+{
+	int	status_code;
+
+	status_code = call_builtin(mini, cmd, args);
+	exit(status_code);
 }
 
 /*
@@ -44,6 +93,7 @@ static int call_builtin(t_mini *mini, char *cmd, char **args)
 ** @param t_mini *mini	The mini struct.
 ** @param char *cmd		The command to be executed.
 ** @param char **args 	The argument string array.
+** @return int 			The status code
 */
 int	exe_builtin(t_mini *mini, char *cmd, char **args)
 {
@@ -59,8 +109,7 @@ int	exe_builtin(t_mini *mini, char *cmd, char **args)
 			close(mini->pipe_read);
 			dup2(mini->pipe_write, STDOUT_FILENO);
 		}
-		status_code = call_builtin(mini, cmd, args);
-		exit(status_code);
+		call_and_exit(mini, cmd, args);
 	}
 	else
 	{
@@ -70,11 +119,7 @@ int	exe_builtin(t_mini *mini, char *cmd, char **args)
 			close(mini->pipe_write);
 		}
 		waitpid(pid, &status_code, 0);
-		if (!ft_strcmp(cmd, "exit"))
-		{
-			mini->exit = 1;
-			mini->exit_status_code = WEXITSTATUS(status_code);
-		}
+		parent_postprocess(mini, cmd, args, status_code);
 	}
 	return (status_code);
 }
