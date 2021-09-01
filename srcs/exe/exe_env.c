@@ -11,11 +11,13 @@ char	*traverse_dir(char *path, char *exe)
 	if (!dir)
 		return (NULL);
 	dir_contents = readdir(dir);
+	exe_path = ft_strdup("");
 	while (dir_contents)
 	{
-		if (!ft_strncmp(dir_contents->d_name, exe, ft_strlen(dir_contents->d_name))) // REPLACE
+		if (!ft_strcmp(dir_contents->d_name, exe)) // REPLACE ft_strncmp(dir_contents->d_name, exe, ft_strlen(dir_contents->d_name))
 		{
 			temp = ft_strjoin(path, "/");
+			free(exe_path);
 			exe_path = ft_strjoin(temp, dir_contents->d_name);
 			free(temp);
 		}

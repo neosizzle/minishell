@@ -1,5 +1,11 @@
 #include "minishell.h"
 
+/*
+** Checks for valid path
+**
+** @param	char *path			The argument count;
+** @return	int					The exit status code.
+*/
 int	get_err_status_code(char *path)
 {
 	int	fd;
@@ -11,7 +17,7 @@ int	get_err_status_code(char *path)
 	ft_putstr_fd("minishell: ", 2);
 	ft_putstr_fd(path, 2);
 	if (ft_strchr(path, '/') == NULL)
-		ft_putendl_fd(": command not found", 2);
+		ft_putendl_fd("command not found", 2);
 	else if (fd == -1 && dir != NULL)
 		ft_putendl_fd(": is a directory", 2);
 	else if (fd == -1 && dir == NULL)
@@ -26,7 +32,7 @@ int	get_err_status_code(char *path)
 }
 
 /*
-** Launches an executable from the specified path argument.
+** Spins up child process and modifies fds before calling builtin functions
 **
 ** @param	int		argc		The argument count;
 ** @param	char	**argv		The argument vector;

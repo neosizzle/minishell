@@ -74,7 +74,7 @@ static void	execute_cmd(t_token *cmd, char **args, t_mini *mini)
 {
 	if (cmd->type == CMD_BUILTIN)
 		mini->exit_status_code = exe_builtin(mini, cmd->str, args);
-	if (cmd->type == CMD_EXE)
+	else if (cmd->type == CMD_EXE)
 		mini->exit_status_code = exe_executable(mini, args);
 }
 
