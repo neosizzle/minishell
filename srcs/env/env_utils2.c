@@ -64,3 +64,21 @@ void	add_env_back(t_mini *mini, t_env *env)
 	if (!overwrite)
 		ft_lstadd_back(&(mini->envs), env);
 }
+
+/*
+** Given the env content in the form of x=y, return x
+** 
+** @param char *str	The env content
+** @return char *		THe trimmed result
+*/
+char	*get_env_name(char *str)
+{
+	char	*res;
+	int		i;
+
+	i = 0;
+	while (str[i] != '=')
+		++i;
+	res = ft_substr(str, 0, i);
+	return (res);
+}
