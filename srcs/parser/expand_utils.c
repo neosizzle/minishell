@@ -62,11 +62,25 @@ static char	*expand_env(t_mini *mini, char *str, int start, int end)
 	return (var_val);
 }
 
+/*
+Calls expand env on the start and end index of the string and 
+call strrepl to replace it with the expanded value and overriding the token str
+Also checks for '$' in string end as well as symbols followed by it
+
+@param t_mini *mini 	The mini struct
+@param t_token *curr	The current token pointer
+@param int s_idx		The start index of replacement
+@param int e_idx		The end index of replacement
+@return void
+*/
 void	replace_tokenstr(t_mini *mini, t_token *curr, int s_idx, int e_idx)
 {
 	char	*temp;
 	char	*expanded;
 
+	if (curr->str[s_idx] == '$' && (!curr->str[s_idx + 1]
+			|| !ft_isalnum(curr->str[s_idx + 1])))
+		return ;
 	expanded = expand_env(mini, curr->str, s_idx, e_idx);
 	temp = ft_strrepl(curr->str, expanded, s_idx, e_idx);
 	free(curr->str);
