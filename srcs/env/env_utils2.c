@@ -3,7 +3,7 @@
 /*
 ** This function will extract the env vame from the contents
 ** and will compare the names
-** 
+**
 ** @param char *s1		The first env content
 ** @param char *s2		The other env content
 ** @return int res		The comparison result
@@ -37,7 +37,7 @@ static int	env_name_cmp(char *s1, char *s2)
 ** env provided
 ** If not found, it will simple add it the new env
 ** to the end of the list
-** 
+**
 ** @param t_mini *mini		The mini struct pointer
 ** @param t_env *env		The new env to be added
 ** @return void
@@ -66,8 +66,31 @@ void	add_env_back(t_mini *mini, t_env *env)
 }
 
 /*
+** Checks if the variable passed is inside the env var linked list.
+** Just to satisfy norminette
+**
+** @param	t_env	*cur		The pointer to the current env var;
+** @param	char	*var		The environment variable;
+** @return	int				1 for success and 0 for failure.
+*/
+int	is_same_env_var(t_env *cur, char *var)
+{
+	t_env	*temp;
+
+	if (!ft_strncmp(cur->next->content, var,
+			get_env_var_name_size(cur->next->content)))
+	{
+		temp = cur->next;
+		cur->next = cur->next->next;
+		ft_lstdelone(temp);
+		return (1);
+	}
+	return (0);
+}
+
+/*
 ** Given the env content in the form of x=y, return x
-** 
+**
 ** @param char *str	The env content
 ** @return char *		THe trimmed result
 */

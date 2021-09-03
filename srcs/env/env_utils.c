@@ -81,7 +81,8 @@ int	remove_env_var(t_mini *mini, char *var)
 
 	if (!mini->envs)
 		return (0);
-	if (!ft_strncmp(mini->envs->content, var, get_env_var_name_size(mini->envs->content)))
+	if (!ft_strncmp(mini->envs->content, var,
+			get_env_var_name_size(mini->envs->content)))
 	{
 		temp = mini->envs;
 		if (mini->envs->next)
@@ -94,13 +95,8 @@ int	remove_env_var(t_mini *mini, char *var)
 	cur = mini->envs;
 	while (cur && cur->next)
 	{
-		if (!ft_strncmp(cur->next->content, var, get_env_var_name_size(cur->next->content)))
-		{
-			temp = cur->next;
-			cur->next = cur->next->next;
-			ft_lstdelone(temp);
+		if (is_same_env_var(cur, var))
 			return (1);
-		}
 		cur = cur->next;
 	}
 	return (0);
