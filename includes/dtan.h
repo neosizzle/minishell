@@ -46,11 +46,8 @@ int		is_in_env(t_mini *mini, char *arg);
 int		is_valid_env_var(char *var);
 t_env	*get_sorted_env_vars(t_mini *mini);
 void	add_env_back(t_mini *mini, t_env *env);
-<<<<<<< HEAD
 int		is_same_env_var(t_env *cur, char *var);
-=======
 char	*get_env_name(char *str);
->>>>>>> 364e9b06bfded8e65254ead34eb20b498f3f9461
 
 /*
 **	PIPE UTILS

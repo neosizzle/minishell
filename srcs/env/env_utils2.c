@@ -86,6 +86,7 @@ int	is_same_env_var(t_env *cur, char *var)
 		return (1);
 	}
 	return (0);
+}
 
 /*
 ** Given the env content in the form of x=y, return x
