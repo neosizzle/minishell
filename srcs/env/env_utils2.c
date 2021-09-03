@@ -86,4 +86,21 @@ int	is_same_env_var(t_env *cur, char *var)
 		return (1);
 	}
 	return (0);
+
+/*
+** Given the env content in the form of x=y, return x
+**
+** @param char *str	The env content
+** @return char *		THe trimmed result
+*/
+char	*get_env_name(char *str)
+{
+	char	*res;
+	int		i;
+
+	i = 0;
+	while (str[i] != '=')
+		++i;
+	res = ft_substr(str, 0, i);
+	return (res);
 }

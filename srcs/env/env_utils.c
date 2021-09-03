@@ -111,13 +111,27 @@ int	remove_env_var(t_mini *mini, char *var)
 */
 char	*get_env_var(t_mini *mini, char *var_name)
 {
+<<<<<<< HEAD
 	t_env	*cur;
+=======
+	t_env 	*cur;
+	char	*content_name;
+>>>>>>> 364e9b06bfded8e65254ead34eb20b498f3f9461
 
 	cur = mini->envs;
 	while (cur)
 	{
+<<<<<<< HEAD
 		if (!ft_strncmp(var_name, cur->content, ft_strlen(var_name)))
+=======
+		content_name = get_env_name(cur->content);
+		if (!ft_strcmp(var_name, content_name))
+		{
+			free(content_name);
+>>>>>>> 364e9b06bfded8e65254ead34eb20b498f3f9461
 			return (cur->content);
+		}
+		free(content_name);
 		cur = cur->next;
 	}
 	return (NULL);
