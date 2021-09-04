@@ -111,7 +111,7 @@ int	remove_env_var(t_mini *mini, char *var)
 */
 char	*get_env_var(t_mini *mini, char *var_name)
 {
-	t_env 	*cur;
+	t_env	*cur;
 	char	*content_name;
 
 	cur = mini->envs;
