@@ -57,8 +57,19 @@ static t_mini	*init_mini(void)
 */
 static void	init_vars(t_mini *mini)
 {
-	add_env_var(mini, "PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/munki");
-	add_env_var(mini, "HOME=/home");
+	char	*path_env;
+	char	*home_env;
+	char	*term_env;
+
+	path_env = ft_strjoin("PATH=", getenv("PATH"));
+	home_env = ft_strjoin("HOME=", getenv("HOME"));
+	term_env = ft_strjoin("TERM=", getenv("TERM"));
+	add_env_var(mini, path_env);
+	add_env_var(mini, home_env);
+	add_env_var(mini, term_env);
+	free(path_env);
+	free(home_env);
+	free(term_env);
 }
 
 /*
