@@ -1,5 +1,5 @@
 NAME=minishell
-GCC=gcc -Wall -Wextra -fsanitize=address -g
+GCC=gcc -Wall -Wextra -Werror -fsanitize=address
 SRCS=srcs/*.c srcs/free/*.c srcs/err/*.c srcs/parser/*.c srcs/builtin/*.c \
 	srcs/env/*.c srcs/exe/*.c srcs/executor/*.c srcs/history/*.c srcs/signals/*.c \
 	srcs/pipe/*.c srcs/redirect/*.c

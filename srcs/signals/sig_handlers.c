@@ -25,7 +25,12 @@ void	handle_sigint(int pid)
 	if (g_global.in_fork)
 		printf("\n");
 	else
-		printf("\n%s", g_global.prompt);
+	{
+		printf("\n");
+		rl_on_new_line();
+		rl_replace_line("", 0);
+		rl_redisplay();
+	}
 }
 
 /*

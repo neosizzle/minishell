@@ -17,7 +17,7 @@ int	get_err_status_code(char *path)
 	ft_putstr_fd("minishell: ", 2);
 	ft_putstr_fd(path, 2);
 	if (ft_strchr(path, '/') == NULL)
-		ft_putendl_fd("command not found", 2);
+		ft_putendl_fd(": command not found", 2);
 	else if (fd == -1 && dir != NULL)
 		ft_putendl_fd(": is a directory", 2);
 	else if (fd == -1 && dir == NULL)
