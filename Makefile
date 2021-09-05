@@ -11,10 +11,10 @@ all : ${NAME}
 
 ${NAME} :
 	make -C libft; make bonus -C libft;
-	${GCC} ${INC} ${SRCS} ${INC_LIBFT} ${OTHER_LIBS} -o ${NAME}
+	${GCC} ${INC} ${SRCS} ${INC_LIBFT} -o ${NAME} ${OTHER_LIBS}
 
 nolibft :
-	${GCC} ${INC} ${SRCS} ${INC_LIBFT} ${OTHER_LIBS} -o ${NAME}
+	${GCC} ${INC} ${SRCS} ${INC_LIBFT} -o ${NAME} ${OTHER_LIBS}
 
 clean :
 	rm -f *.o
