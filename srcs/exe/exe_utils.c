@@ -68,6 +68,7 @@ int	launch_exe(char *path, char **argv, t_mini *mini)
 	int		status_code;
 
 	pid = fork();
+	status_code = 0;
 	g_global.in_fork = 1;
 	if (pid == 0)
 	{

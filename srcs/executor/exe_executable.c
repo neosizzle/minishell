@@ -68,6 +68,7 @@ int	exe_executable(t_mini *mini, char **args)
 	int	path_code;
 
 	argc = 0;
+	status_code = 0;
 	while (args[argc])
 		argc++;
 	path_code = check_path(args[0]);
