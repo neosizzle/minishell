@@ -102,6 +102,7 @@ int	exe_builtin(t_mini *mini, char *cmd, char **args)
 	int		status_code;
 
 	pid = fork();
+	status_code = 0;
 	g_global.in_fork = 1;
 	if (pid == 0)
 	{
