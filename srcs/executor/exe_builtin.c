@@ -26,6 +26,7 @@ static int	call_builtin(t_mini *mini, char *cmd, char **args)
 	int	status_code;
 
 	argc = get_argc(args);
+	status_code = 0;
 	if (!ft_strcmp(cmd, "echo"))
 		status_code = ft_echo(argc, args);
 	else if (!ft_strcmp(cmd, "pwd"))
