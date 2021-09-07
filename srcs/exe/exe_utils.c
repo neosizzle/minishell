@@ -17,7 +17,7 @@ int	get_err_status_code(char *path)
 	ft_putstr_fd("minishell: ", 2);
 	ft_putstr_fd(path, 2);
 	if (ft_strchr(path, '/') == NULL)
-		ft_putendl_fd("command not found", 2);
+		ft_putendl_fd(": command not found", 2);
 	else if (fd == -1 && dir != NULL)
 		ft_putendl_fd(": is a directory", 2);
 	else if (fd == -1 && dir == NULL)
@@ -68,6 +68,7 @@ int	launch_exe(char *path, char **argv, t_mini *mini)
 	int		status_code;
 
 	pid = fork();
+	status_code = 0;
 	g_global.in_fork = 1;
 	if (pid == 0)
 	{

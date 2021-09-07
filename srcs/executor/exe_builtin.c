@@ -26,6 +26,7 @@ static int	call_builtin(t_mini *mini, char *cmd, char **args)
 	int	status_code;
 
 	argc = get_argc(args);
+	status_code = 0;
 	if (!ft_strcmp(cmd, "echo"))
 		status_code = ft_echo(argc, args);
 	else if (!ft_strcmp(cmd, "pwd"))
@@ -88,6 +89,20 @@ static void	call_and_exit(t_mini *mini, char *cmd, char **args)
 }
 
 /*
+** Creates forks and sets globals
+** 
+** @param int *pid				The pid to create fork
+** @param int *status_code		status code to initialize
+** @return void
+*/
+static void	create_fork(pid_t *pid, int *status_code)
+{
+	*pid = fork();
+	*status_code = 0;
+	g_global.in_fork = 1;
+}
+
+/*
 ** Given a command string and its args, execute the function appropriately
 **
 ** @param t_mini *mini	The mini struct.
@@ -100,8 +115,7 @@ int	exe_builtin(t_mini *mini, char *cmd, char **args)
 	pid_t	pid;
 	int		status_code;
 
-	pid = fork();
-	g_global.in_fork = 1;
+	create_fork(&pid, &status_code);
 	if (pid == 0)
 	{
 		if (mini->pipe_write != -1)

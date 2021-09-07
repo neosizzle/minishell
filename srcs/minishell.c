@@ -57,22 +57,33 @@ static t_mini	*init_mini(void)
 */
 static void	init_vars(t_mini *mini)
 {
-	add_env_var(mini, "PATH=/bin:/usr/bin");
-	add_env_var(mini, "HOME=/home");
+	char	*path_env;
+	char	*home_env;
+	char	*term_env;
+
+	path_env = ft_strjoin("PATH=", getenv("PATH"));
+	home_env = ft_strjoin("HOME=", getenv("HOME"));
+	term_env = ft_strjoin("TERM=", getenv("TERM"));
+	add_env_var(mini, path_env);
+	add_env_var(mini, home_env);
+	add_env_var(mini, term_env);
+	free(path_env);
+	free(home_env);
+	free(term_env);
 }
 
 /*
-This function will run a sequence of instructions after a line is get 
-from readline().
-1. Push line to history
-2. Parse line
-3. Free terminal elements
-4. Reset file descriptors
-
-@param t_mini *mini		The pointer to the mini struct
-@param char *buff		The line buffer
-@param char *cwd		The current working directory
-@return void
+** This function will run a sequence of instructions after a line is get 
+** from readline().
+** 1. Push line to history
+** 2. Parse line
+** 3. Free terminal elements
+** 4. Reset file descriptors
+** 
+** @param t_mini *mini		The pointer to the mini struct
+** @param char *buff		The line buffer
+** @param char *cwd		The current working directory
+** @return void
 */
 static void	process_line(t_mini *mini, char *buff, char *cwd)
 {

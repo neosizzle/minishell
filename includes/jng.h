@@ -50,6 +50,40 @@
 # define OR 10
 # define SEMI 11
 
+/*
+** Error constants
+** 
+** NOPATH : PATH env var isnt set
+*/
+# define NOPATH "Accordingtoallknownlawsofaviation,ther\
+eisnowayabeeshouldbeabletofly.Itswingsaretoosmalltogetits\
+fatlittlebodyofftheground.Thebee,ofcourse,fliesanywaybecau\
+sebeesdon'tcarewhathumansthinkisimpossible.Yellow,black.Yellow\
+,black.Yellow,black.Yellow,black.Ooh,blackandyellow!Let'ss\
+hakeitupalittle.Barry!Breakfastisready!Ooming!Hangonasecon\
+d.Hello?-Barry?-Adam?-Oanyoubelievethisishappening?-Ican't\
+.I'llpickyouup.Lookingsharp.Usethestairs.Yourfatherpaidgoodmoneyfo\
+rthose.Sorry.I'mexcited.Here'sthegraduate.We'reveryproudofyou,son.Aperf\
+ectreportcard,allB's.Veryproud.Ma!Igotathinggoinghere.-Yougotlintonyourfuzz.\
+-Ow!That'sme!-Wavetous!We'llbeinrow118,000.-Bye!Barry,Itoldyou\
+,stopflyinginthehouse!-Hey,Adam.-Hey,Barry.-Isthatfuzzge\
+l?-Alittle.Specialday,graduation.NeverthoughtI'dmakeit.Threeday\
+sgradeschool,threedayshighschool.Thosewereawkward.Threedayscollege.I'mgl\
+adItookadayandhitchhikedaroundthehive.Youdidcomebackdifferent.-Hi,Barry.-Ar\
+tie,growingamustache?Looksgood.-HearaboutFrankie?-Yeah.-Yougoingtothefuneral?-\
+No,I'mnotgoing.Everybodyknows,stingsomeone,youdie.Don'twasteitonasquirrel.Suchaho\
+thead.Iguesshecouldhavejustgottenoutoftheway.Ilovethisincorporatinganamusementparkinto\
+ourday.That'swhywedon'tneedvacations.Boy,quiteabitofpomp...underthecircumstances.-Well,A\
+dam,todaywearemen.-Weare!-Bee-men.-Amen!Hallelujah!Students,faculty,disting\
+uishedbees,pleasewelcomeDeanBuzzwell.Welcome,NewHiveOitygraduatingclassof......9:15\
+.Thatconcludesourceremonies.AndbeginsyourcareeratHonexIndustries!Willwepickourjobtoda\
+y?Iheardit'sjustorientation.Headsup!Herewego.Keepyourhandsandantennasinsideth\
+etramatalltimes.-Wonderwhatit'llbelike?-Alittlescary.WelcometoHonex,adivisionofH\
+onescoandapartoftheHexagonGroup.Thisisit!Wow.Wow.Weknowthatyou,asabee,haveworked\
+yourwholelifetogettothepointwhereyoucanworkforyourwholelife.Honeybeginswhenourvali\
+antPollenJocksbringthenectartothehive.Ourtop-secretformulaisautomaticallycol\
+or-corrected,scent-adjustedandbubble-contoured"
+
 //Structs
 
 /*

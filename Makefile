@@ -1,5 +1,5 @@
 NAME=minishell
-GCC=gcc -Wall -Wextra -fsanitize=address -g
+GCC=gcc -Wall -Wextra -g -fsanitize=address
 SRCS=srcs/*.c srcs/free/*.c srcs/err/*.c srcs/parser/*.c srcs/builtin/*.c \
 	srcs/env/*.c srcs/exe/*.c srcs/executor/*.c srcs/history/*.c srcs/signals/*.c \
 	srcs/pipe/*.c srcs/redirect/*.c
@@ -11,10 +11,10 @@ all : ${NAME}
 
 ${NAME} :
 	make -C libft; make bonus -C libft;
-	${GCC} ${INC} ${SRCS} ${INC_LIBFT} ${OTHER_LIBS} -o ${NAME}
+	${GCC} ${INC} ${SRCS} ${INC_LIBFT} -o ${NAME} ${OTHER_LIBS}
 
 nolibft :
-	${GCC} ${INC} ${SRCS} ${INC_LIBFT} ${OTHER_LIBS} -o ${NAME}
+	${GCC} ${INC} ${SRCS} ${INC_LIBFT} -o ${NAME} ${OTHER_LIBS}
 
 clean :
 	rm -f *.o

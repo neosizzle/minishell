@@ -12,22 +12,6 @@
 
 #include "minishell.h"
 
-//REMOVE IN PROD
-//Test function I made to print the args.
-// static void	print_args(char **args)
-// {
-// 	if (!args)
-// 	{
-// 		printf("No args\n");
-// 		return ;
-// 	}
-// 	while (*args)
-// 	{
-// 		printf("arg : %s\n", *args);
-// 		args++;
-// 	}
-// }
-
 /*
 ** Given a token linked list, it will get the arguments and convert
 ** into array of strings.
