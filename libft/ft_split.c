@@ -1,71 +1,57 @@
 #include "libft.h"
-#include <stdio.h>
+#include <stdlib.h>
 
-static int	is_delimiter(char c, char delimiter)
+static void	ft_strcpy(char *dst, char *begin, char *end)
 {
-	return (c == delimiter);
+	while (begin < end)
+		*(dst++) = *(begin++);
+	*dst = 0;
 }
 
-static int	count_words(char const *s, char c)
+static int	get_tw(char *s, char c)
 {
-	size_t	offset;
-	int		count;
+	int		res;
 
-	offset = 0;
-	count = 0;
-	while (s[offset])
+	res = 0;
+	while (*s)
 	{
-		while (s[offset] && is_delimiter(s[offset], c))
-			offset++;
-		if (s[offset] && !is_delimiter(s[offset], c))
+		if (!(*s == c))
 		{
-			count++;
-			while (s[offset] && !is_delimiter(s[offset], c))
-				offset++;
+			res++;
+			while (*s && !(*s == c))
+				s++;
 		}
+		else
+			s++;
 	}
-	return (count);
-}
-
-static char	*get_word(char const *s, char c)
-{
-	size_t	len;
-	size_t	offset;
-	char	*word;
-
-	len = 0;
-	offset = 0;
-	while (s[len] && !is_delimiter(s[len], c))
-		len++;
-	word = (char *) malloc(sizeof(char) * (len + 1));
-	while (s[offset] && !is_delimiter(s[offset], c))
-	{
-		word[offset] = s[offset];
-		offset++;
-	}
-	word[offset] = '\0';
-	return (word);
+	return (res);
 }
 
 char	**ft_split(char const *s, char c)
 {
-	size_t	i;
-	char	**arr;
+	char	*start;
+	char	**res;
+	int		i;
 
+	if (!s)
+		return (0);
+	res = (char **)malloc((sizeof(char *) * (get_tw((char *)s, c) + 1)));
+	if (!res)
+		return (0);
 	i = 0;
-	arr = (char **) malloc(sizeof(char *) * (count_words(s, c) + 1));
 	while (*s)
 	{
-		while (*s && is_delimiter(*s, c))
-			s++;
-		if (*s && !is_delimiter(*s, c))
+		if (*s != c)
 		{
-			arr[i] = get_word(s, c);
-			i++;
-			while (*s && !is_delimiter(*s, c))
+			start = (char *)s;
+			while (*s && *s != c)
 				s++;
+			res[i] = (char *)malloc((char *)s - start + 1);
+			ft_strcpy(res[i++], start, (char *)s);
 		}
+		else
+			s++;
 	}
-	arr[i] = NULL;
-	return (arr);
+	res[i] = 0;
+	return (res);
 }
