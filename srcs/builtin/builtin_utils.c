@@ -51,6 +51,7 @@ char	*get_env_path(t_env *env, char *var)
 
 int	print_cd_error(char *arg)
 {
+	ft_putstr_fd("minishell: ", 2);
 	ft_putstr_fd("cd: ", 2);
 	ft_putstr_fd(strerror(errno), 2);
 	ft_putstr_fd(": ", 2);

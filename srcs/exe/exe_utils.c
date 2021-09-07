@@ -28,7 +28,7 @@ int	get_err_status_code(char *path)
 		status_code = 126;
 	close(fd);
 	closedir(dir);
-	return (status_code);
+	return (WEXITSTATUS(status_code));
 }
 
 /*
@@ -88,5 +88,5 @@ int	launch_exe(char *path, char **argv, t_mini *mini)
 		}
 		waitpid(pid, &status_code, 0);
 	}
-	return (WEXITSTATUS(status_code));
+	return (status_code);
 }
