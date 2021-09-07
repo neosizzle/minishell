@@ -34,9 +34,11 @@ int	is_valid_env_var(char *var)
 	int	i;
 
 	i = 0;
+	if (var[i] == '=')
+		return (0);
 	while (var[i] && var[i] != '=')
 	{
-		if (ft_isalpha(var[i]) == 0)
+		if (!ft_isalpha(var[i]))
 			return (0);
 		i++;
 	}
