@@ -87,5 +87,5 @@ int	launch_exe(char *path, char **argv, t_mini *mini)
 		}
 		waitpid(pid, &status_code, 0);
 	}
-	return (status_code);
+	return (WEXITSTATUS(status_code));
 }
