@@ -73,17 +73,17 @@ static void	init_vars(t_mini *mini)
 }
 
 /*
-This function will run a sequence of instructions after a line is get 
-from readline().
-1. Push line to history
-2. Parse line
-3. Free terminal elements
-4. Reset file descriptors
-
-@param t_mini *mini		The pointer to the mini struct
-@param char *buff		The line buffer
-@param char *cwd		The current working directory
-@return void
+** This function will run a sequence of instructions after a line is get 
+** from readline().
+** 1. Push line to history
+** 2. Parse line
+** 3. Free terminal elements
+** 4. Reset file descriptors
+** 
+** @param t_mini *mini		The pointer to the mini struct
+** @param char *buff		The line buffer
+** @param char *cwd		The current working directory
+** @return void
 */
 static void	process_line(t_mini *mini, char *buff, char *cwd)
 {
