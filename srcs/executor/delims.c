@@ -33,11 +33,18 @@ static void	handle_pipes(t_mini *mini, t_token *curr)
 **@param t_token *curr	The comamnd token
 **@return void
 */
+// only supports 1 heredoc argument (line 45)
 static void	handle_heredocs(t_mini *mini, t_token *curr)
 {
 	mini->heredoc = 1;
 	mini->heredoc_buff = create_heredoc(curr->next->str);
 	curr->next->type = ARG;
+	mini->heredoc_next_delim = get_next_delim(curr);
+	if (mini->heredoc_next_delim)
+	{
+		curr = curr->next->next->next;
+		mini->heredoc_next_token = curr;
+	}
 }
 
 /*

@@ -65,7 +65,7 @@ static void	parent_postprocess(t_mini *mini, char *cmd
 		ft_cd(argc, args, mini);
 	if (!ft_strcmp(cmd, "exit"))
 		mini->exit = 1;
-	else if (!ft_strcmp(cmd, "export") && argc > 1)
+	else if (!ft_strcmp(cmd, "export") && argc > 1 && !stat_code)
 		ft_export(argc, args, mini);
 	else if (!ft_strcmp(cmd, "unset"))
 		ft_unset(argc, args, mini);

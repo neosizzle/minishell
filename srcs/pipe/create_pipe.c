@@ -11,6 +11,11 @@ int	create_pipe(t_mini *mini)
 	int		pipefd[2];
 	int		status;
 
+	if (mini->heredoc_process_delim)
+	{
+		mini->heredoc_process_delim = 0;
+		return (0);
+	}
 	g_global.pipe = 1;
 	status = pipe(pipefd);
 	if (status < 0)

@@ -44,6 +44,7 @@ static t_mini	*init_mini(void)
 	mini->stdin_fd = dup(STDIN_FILENO);
 	mini->stdout_fd = dup(STDOUT_FILENO);
 	mini->exit_status_code = 0;
+	mini->heredoc_process_delim = 0;
 	return (mini);
 }
 
