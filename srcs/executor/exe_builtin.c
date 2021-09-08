@@ -69,7 +69,7 @@ static void	parent_postprocess(t_mini *mini, char *cmd
 		ft_export(argc, args, mini);
 	else if (!ft_strcmp(cmd, "unset"))
 		ft_unset(argc, args, mini);
-	mini->exit_status_code = WEXITSTATUS(stat_code);
+	mini->exit_status_code = (stat_code);
 }
 
 /*
@@ -135,5 +135,5 @@ int	exe_builtin(t_mini *mini, char *cmd, char **args)
 		waitpid(pid, &status_code, 0);
 		parent_postprocess(mini, cmd, args, status_code);
 	}
-	return (status_code);
+	return (WEXITSTATUS(status_code));
 }

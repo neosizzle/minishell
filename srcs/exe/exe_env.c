@@ -79,5 +79,5 @@ int	ft_exe_env(int argc, char **argv, t_mini *mini)
 	launch(&status_code, path, mini, argv);
 	free_arr(paths);
 	free(path);
-	return (status_code);
+	return (WEXITSTATUS(status_code));
 }

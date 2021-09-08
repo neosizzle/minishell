@@ -152,5 +152,5 @@ int	main(int argc, char *argv[])
 	}
 	stat_code = mini->exit_status_code;
 	free_mini(mini);
-	return (WEXITSTATUS(stat_code));
+	return (stat_code);
 }

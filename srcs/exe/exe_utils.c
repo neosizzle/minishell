@@ -28,7 +28,7 @@ int	get_err_status_code(char *path)
 		status_code = 126;
 	close(fd);
 	closedir(dir);
-	return (status_code);
+	return (WEXITSTATUS(status_code));
 }
 
 /*
