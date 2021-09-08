@@ -129,6 +129,8 @@ typedef struct s_history
 ** heredoc - 1 when processing heredoc and 0 otherwise
 ** heredoc_next_delim - non-zero if the next delim after heredoc is a 
 **						redir or pipe
+** heredoc_process_delim - 1 if processing heredoc delim and 0
+**							otherwise.
 ** hererdoc_buff - the heredoc buffer
 */
 typedef struct s_mini
@@ -148,7 +150,7 @@ typedef struct s_mini
 	int			exit_status_code;
 	int			heredoc;
 	int			heredoc_next_delim;
-	int			heredoc_redir;
+	int			heredoc_process_delim;
 	char		*heredoc_buff;
 	t_token		*heredoc_next_token;
 }	t_mini;

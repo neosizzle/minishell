@@ -51,7 +51,7 @@ static void	handle_hd_delims(t_mini *mini)
 		redir_input(mini, next);
 	if (next_delim == PIPE)
 		create_pipe(mini);
-	mini->heredoc_redir = 1;
+	mini->heredoc_process_delim = 1;
 }
 
 /*

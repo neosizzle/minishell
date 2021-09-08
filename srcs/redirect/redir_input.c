@@ -9,7 +9,7 @@
 */
 int	redir_input(t_mini *mini, t_token *token)
 {
-	if (mini->heredoc_redir)
+	if (mini->heredoc_process_delim)
 		return (0);
 	if (mini->redir_in != -1)
 		close(mini->redir_in);

@@ -11,9 +11,9 @@ int	create_pipe(t_mini *mini)
 	int		pipefd[2];
 	int		status;
 
-	if (mini->heredoc_redir)
+	if (mini->heredoc_process_delim)
 	{
-		mini->heredoc_redir = 0;
+		mini->heredoc_process_delim = 0;
 		return (0);
 	}
 	g_global.pipe = 1;
