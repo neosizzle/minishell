@@ -9,6 +9,8 @@
 */
 int	redir_output(t_mini *mini, t_token *token, int type)
 {
+	if (mini->heredoc_redir)
+		return (0);
 	if (mini->redir_out != -1)
 		close(mini->redir_out);
 	if (type == TRUNC)

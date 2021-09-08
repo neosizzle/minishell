@@ -9,6 +9,8 @@
 */
 int	redir_input(t_mini *mini, t_token *token)
 {
+	if (mini->heredoc_redir)
+		return (0);
 	if (mini->redir_in != -1)
 		close(mini->redir_in);
 	mini->redir_in = open(token->str, O_RDONLY, S_IRWXU);

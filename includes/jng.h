@@ -44,8 +44,8 @@
 # define TRUNC 4
 # define APPEND 5
 # define INPUT 6
-# define HEREDOC 7
-# define PIPE 8
+# define PIPE 7
+# define HEREDOC 8
 # define AND 9
 # define OR 10
 # define SEMI 11
@@ -127,6 +127,8 @@ typedef struct s_history
 ** exit - exit status
 ** exit_status_code - exit status code
 ** heredoc - 1 when processing heredoc and 0 otherwise
+** heredoc_next_delim - non-zero if the next delim after heredoc is a 
+**						redir or pipe
 ** hererdoc_buff - the heredoc buffer
 */
 typedef struct s_mini
@@ -145,7 +147,10 @@ typedef struct s_mini
 	int			exit;
 	int			exit_status_code;
 	int			heredoc;
+	int			heredoc_next_delim;
+	int			heredoc_redir;
 	char		*heredoc_buff;
+	t_token		*heredoc_next_token;
 }	t_mini;
 
 /*
@@ -200,6 +205,7 @@ int		exe_builtin(t_mini *mini, char *cmd, char **args);
 int		exe_executable(t_mini *mini, char **args);
 int		get_argc(char **args);
 void	handle_delims(t_mini *mini, t_token *curr, t_token *cmd);
+int		get_next_delim(t_token *curr);
 
 //History functions
 void	push_history(t_mini *mini, char *buff);

@@ -29,14 +29,14 @@ char	*traverse_dir(char *path, char *exe)
 }
 
 /*
-This function will call specific launch helpers depending on the pathcode and 
-The mini struct as well as set the status code after execution
-
-@param int *status_code		The status code to modify
-@param char *path			The path of the executable
-@param t_mini *mini			The mini struct
-@param char **argv			The argument vector
-@return void
+** This function will call specific launch helpers depending on the pathcode and 
+** The mini struct as well as set the status code after execution
+** 
+** @param int *status_code		The status code to modify
+** @param char *path			The path of the executable
+** @param t_mini *mini			The mini struct
+** @param char **argv			The argument vector
+** @return void
 */
 static void	launch(int *status_code, char *path, t_mini *mini, char **argv)
 {
