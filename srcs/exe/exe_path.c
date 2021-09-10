@@ -14,5 +14,5 @@ int	ft_exe_path(int argc, char **argv, t_mini *mini)
 
 	(void)argc;
 	status_code = launch_exe(argv[0], argv, mini);
-	return (status_code);
+	return (WEXITSTATUS(status_code));
 }
