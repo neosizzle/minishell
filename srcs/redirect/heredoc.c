@@ -33,12 +33,75 @@ char	*create_heredoc(char *delim)
 }
 
 /*
+** Depending on the delim type, call helper functons to create fd pipes
+** 
+** @param t_mini *mini	The mini struct
+** @return void
+*/
+static void	handle_hd_delims(t_mini *mini)
+{
+	int		next_delim;
+	t_token	*next;
+
+	next_delim = mini->heredoc_next_delim;
+	next = mini->heredoc_next_token;
+	if (next_delim == APPEND || next_delim == TRUNC)
+		redir_output(mini, next, next_delim);
+	if (next_delim == INPUT)
+		redir_input(mini, next);
+	if (next_delim == PIPE)
+		create_pipe(mini);
+	mini->heredoc_process_delim = 1;
+}
+
+/*
+** Initializes child sequence for launching heredoc executable
+** 
+** @param int heredoc_fd[2]	The heredoc pipe fd pairs
+** @param t_mini *mini			The mini struct
+** @return void
+*/
+static void	init_hd_child_sq(int heredoc_fd[2], t_mini *mini)
+{
+	close(heredoc_fd[1]);
+	dup2(heredoc_fd[0], STDIN_FILENO);
+	if (mini->pipe_write != -1)
+	{
+		close(mini->pipe_read);
+		dup2(mini->pipe_write, STDOUT_FILENO);
+	}
+}
+
+/*
+** Initializes parent sequence for launching heredoc executable
+** 
+** @param int heredoc_fd[2]	The heredoc pipe fd pairs
+** @param t_mini *mini		The mini struct
+** @param int pid			The pid of child process
+** @return void
+*/
+static void	init_hd_parent_sq(int heredoc_fd[2], t_mini *mini, pid_t pid)
+{
+	close(heredoc_fd[0]);
+	write(heredoc_fd[1], mini->heredoc_buff, ft_strlen(mini->heredoc_buff));
+	if (mini->pipe_write != -1)
+	{
+		dup2(mini->pipe_read, STDIN_FILENO);
+		close(mini->pipe_write);
+	}
+	close(heredoc_fd[1]);
+	wait(NULL);
+	kill(pid, SIGTERM);
+}
+
+/*
 ** Sets up fds and pipes for execution
 ** 
 ** Gets the env vars,
 ** Gets the string that needed to be sent,
 ** Create a pipe with fds stored at hererdoc_fd[]
-** Fork a chil process
+** Handle any special delims after the heredoc
+** Fork a child process
 ** 
 ** In the child:
 ** Close the WRITE end of the pipe since we reading,
@@ -67,23 +130,17 @@ int	launch_heredoc(t_mini *mini, char *path, char **argv)
 
 	env_arr = get_env_arr(mini);
 	pipe(heredoc_fd);
+	handle_hd_delims(mini);
 	pid = fork();
 	if (pid == 0)
 	{
-		close(heredoc_fd[1]);
-		dup2(heredoc_fd[0], STDIN_FILENO);
+		init_hd_child_sq(heredoc_fd, mini);
 		execve(path, argv, env_arr);
 		close(heredoc_fd[0]);
 		exit(0);
 	}
 	else
-	{
-		close(heredoc_fd[0]);
-		write(heredoc_fd[1], mini->heredoc_buff, ft_strlen(mini->heredoc_buff));
-		close(heredoc_fd[1]);
-		wait(NULL);
-		kill(pid, SIGTERM);
-	}
+		init_hd_parent_sq(heredoc_fd, mini, pid);
 	free_heredoc(env_arr, mini);
-	return (69);
+	return (0);
 }
