@@ -90,7 +90,8 @@ static void	trim_bs(char **str)
 			if (combined[bs_idx] == '\\' && combined[bs_idx + 1] != '$')
 			{
 				left = ft_substr(combined, 0, bs_idx);
-				right = ft_substr(combined, bs_idx, ft_strlen(combined));
+				right = ft_substr(combined, bs_idx,
+						ft_strlen(combined) - bs_idx);
 				join_combined(&combined, left, right);
 			}
 			bs_idx++;
