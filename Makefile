@@ -1,10 +1,11 @@
 NAME=minishell
-GCC=gcc -Wall -Wextra -g -fsanitize=address
+GCC=gcc -Wall -Wextra -Werror -g -fsanitize=address
 SRCS=srcs/*.c srcs/free/*.c srcs/err/*.c srcs/parser/*.c srcs/builtin/*.c \
 	srcs/env/*.c srcs/exe/*.c srcs/executor/*.c srcs/history/*.c srcs/signals/*.c \
 	srcs/pipe/*.c srcs/redirect/*.c
 INC=-I includes
-INC_LIBFT=-L libft -lft
+#INC_LIBFT=-L libft -lft
+INC_LIBFT=libft/*.c
 OTHER_LIBS=-lreadline
 
 all : ${NAME}
