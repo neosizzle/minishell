@@ -1,4 +1,5 @@
 # minishell
+![demo](https://github.com/neosizzle/minishell/blob/master/minishell.gif)
 ## This is the development repo for the 42 project : minishell.
 ### Project description ( As of August 2021 )
 ***
